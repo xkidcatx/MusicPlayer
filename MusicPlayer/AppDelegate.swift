@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MusicPlayer
 //
-//  Created by Gleb Glushok on 05.07.2022.
+//  Created by Gleb on 05.07.2022.
 //
 
 import UIKit
