@@ -67,7 +67,7 @@ class MainTabBarController: UITabBarController {
         musicListVC.tabBarItem.image = UIImage(systemName: "music.note.list")
         profileVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
         
-        tabBar.tintColor = .label
+        tabBar.tintColor = .systemBackground
         
         
     }
