@@ -44,7 +44,6 @@ class MainTabBarController: UITabBarController {
 //        tabBar.unselectedItemTintColor = .white
 //        tabBar.layer.borderWidth = 1
 //        tabBar.layer.borderColor = UIColor.brown.cgColor
-//
         
     }
     
@@ -62,6 +61,13 @@ class MainTabBarController: UITabBarController {
         items[1].title = "Now Playing"
         items[2].title = "Music List"
         items[3].title = "Profile"
+        
+        homeVC.tabBarItem.image = UIImage(systemName: "house")
+        nowPlayingVC.tabBarItem.image = UIImage(systemName: "play.circle")
+        musicListVC.tabBarItem.image = UIImage(systemName: "music.note.list")
+        profileVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        
+        tabBar.tintColor = .label
         
         
     }
