@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifire)
         return table
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +44,10 @@ class HomeViewController: UIViewController {
         
         tableView.allowsSelection = false
         tableView.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
+        
+        tableView.layoutMargins = .zero
+        
     }
 }
 
@@ -72,7 +76,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 220
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
