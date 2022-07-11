@@ -15,7 +15,8 @@ class MusicListViewController: UITableViewController {
         //Регистрируем UITableViewCell для его использования при создании новых ячеек в MusicListViewController
         tableView.register(MusicListCell.self, forCellReuseIdentifier: "MusicListCell")
         
-        view.backgroundColor = .yellow
+        
+        view.backgroundColor = .systemBackground
     }
     
     // устанавливаем кол-во строк в таблице
@@ -32,6 +33,11 @@ class MusicListViewController: UITableViewController {
         // убираем выделение ячейки при выборе
         cell.selectionStyle = .none
         return cell
+    }
+    
+    // Высота ячейки
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
 

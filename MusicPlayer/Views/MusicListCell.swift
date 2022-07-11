@@ -9,6 +9,14 @@ import UIKit
 
 class MusicListCell: UITableViewCell {
     
+    private let musicPosterUIImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "musicLogo")
+        return imageView
+    }()
+    
     //MARK: - Задаем идентификатор нашей ячейки (MusicListCell)
     static let identifier = "MusicListCell"
     
@@ -21,6 +29,7 @@ class MusicListCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(mainLabel)
         addSubview(imgBackground)
+        addSubview(musicPosterUIImageView)
         configureLayout()
         configureView()
     }
@@ -37,20 +46,25 @@ class MusicListCell: UITableViewCell {
         
         //MARK: - Добавляем констрейнты нашему UI-элементу
         NSLayoutConstraint.activate([
-            mainLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            mainLabel.leadingAnchor.constraint(equalTo: musicPosterUIImageView.trailingAnchor, constant: 10),
+            mainLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             mainLabel.widthAnchor.constraint(equalToConstant: 120),
             mainLabel.heightAnchor.constraint(equalToConstant: 30),
             imgBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
             imgBackground.widthAnchor.constraint(equalToConstant: 100),
-            imgBackground.heightAnchor.constraint(equalToConstant: 100)
+            imgBackground.heightAnchor.constraint(equalToConstant: 100),
+            musicPosterUIImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            musicPosterUIImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            musicPosterUIImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            musicPosterUIImageView.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
     
     //MARK: - Настраиваем свойства UI-элемент
     private func configureView() {
         mainLabel.text = "music_name"
-        mainLabel.backgroundColor = .blue
-        mainLabel.textColor = .white
+        mainLabel.textColor = .systemGray
         imgBackground.image = UIImage(named: "examplebackground")
     }
+    
 }
