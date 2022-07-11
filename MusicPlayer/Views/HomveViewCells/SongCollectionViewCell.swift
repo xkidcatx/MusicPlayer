@@ -11,30 +11,19 @@ class SongCollectionViewCell: UICollectionViewCell {
     
     static let identifire = "SongCollectionViewCell"
     
-    private let stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.alignment = .fill
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.contentMode = .scaleToFill
-        stack.spacing = 1
-        stack.backgroundColor = .systemBackground
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }()
-    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "test")
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 25
+        imageView.contentMode = .scaleToFill
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let title: UILabel = {
         let title = UILabel()
-        title.text = "asd"
+        title.text = "Name of Song"
         title.font = .systemFont(ofSize: 17, weight: .bold)
         title.textColor = .darkGray
         title.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +32,7 @@ class SongCollectionViewCell: UICollectionViewCell {
     
     private let subtitle: UILabel = {
         let subtitle = UILabel()
-        subtitle.text = "a"
+        subtitle.text = "Artist"
         subtitle.font = .systemFont(ofSize: 15)
         subtitle.textColor = .lightGray
         subtitle.translatesAutoresizingMaskIntoConstraints = false
@@ -52,11 +41,10 @@ class SongCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(stackView)
         contentView.backgroundColor = .systemBackground
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(title)
-        stackView.addArrangedSubview(subtitle)
+        contentView.addSubview(imageView)
+        contentView.addSubview(title)
+        contentView.addSubview(subtitle)
         setupUI()
     }
     
@@ -66,14 +54,20 @@ class SongCollectionViewCell: UICollectionViewCell {
     
     func setupUI() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 160),
+            imageView.widthAnchor.constraint(equalToConstant: 160),
             
-            imageView.heightAnchor.constraint(equalToConstant: 130),
-            //title.heightAnchor.constraint(equalToConstant: 15),
-            //subtitle.heightAnchor.constraint(equalToConstant: 15),
+            title.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2.5),
+            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            title.heightAnchor.constraint(equalToConstant: 20),
+            
+            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 2.5),
+            subtitle.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            subtitle.leadingAnchor.constraint(equalTo: title.leadingAnchor),
+            subtitle.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
 }
