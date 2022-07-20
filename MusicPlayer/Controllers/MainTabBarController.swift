@@ -15,6 +15,10 @@ class MainTabBarController: UITabBarController {
         setupTabBar()
         setupItems()
         
+        
+    }
+    
+    private func setupTabBar() {
         let layer = CAShapeLayer()
         layer.path = UIBezierPath(roundedRect: CGRect(x: 2, y: self.tabBar.bounds.minY - 20, width: self.tabBar.bounds.width - 4, height: self.tabBar.bounds.height + 40), cornerRadius: (self.tabBar.frame.width/2)).cgPath
         layer.shadowColor = UIColor.lightGray.cgColor
@@ -36,15 +40,6 @@ class MainTabBarController: UITabBarController {
 
         self.tabBar.itemWidth = 30.0
         self.tabBar.itemPositioning = .fill
-    }
-    
-    private func setupTabBar() {
-//        tabBar.backgroundColor = .black
-//        tabBar.tintColor = .white
-//        tabBar.unselectedItemTintColor = .white
-//        tabBar.layer.borderWidth = 1
-//        tabBar.layer.borderColor = UIColor.brown.cgColor
-        
     }
     
     private func setupItems() {
