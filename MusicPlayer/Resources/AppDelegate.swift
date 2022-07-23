@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if AuthManager.shared.isSignedIn {
             window.rootViewController = MainTabBarController()
         } else {
+            //let navVC = UINavigationController(rootViewController: NowPlayingViewController())
             let navVC = UINavigationController(rootViewController: WelcomeViewController())
             navVC.navigationBar.prefersLargeTitles = true
             navVC.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
