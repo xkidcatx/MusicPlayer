@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         title = "Profile"
         APICaller.shared.getCurrentUserProfile { result in
             switch result {
