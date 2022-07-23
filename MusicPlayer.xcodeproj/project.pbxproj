@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1ABB1F9F28773C53008A2419 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB1F9E28773C53008A2419 /* MainTabBarController.swift */; };
 		1ABB1FA128773E0C008A2419 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB1FA028773E0C008A2419 /* ProfileViewController.swift */; };
+		1AC3AA8A288C14360059816F /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3AA89288C14360059816F /* UIImageView + Extension.swift */; };
 		1AEBB3352885900F00DF4B90 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEBB3342885900F00DF4B90 /* AuthManager.swift */; };
 		1AEBB3372885917800DF4B90 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEBB3362885917800DF4B90 /* AuthViewController.swift */; };
 		1AEBB3392885935600DF4B90 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEBB3382885935600DF4B90 /* WelcomeViewController.swift */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		1ABB1F9E28773C53008A2419 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1ABB1FA028773E0C008A2419 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1AC3AA89288C14360059816F /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 		1AEBB3342885900F00DF4B90 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		1AEBB3362885917800DF4B90 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1AEBB3382885935600DF4B90 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AC3AA88288C141C0059816F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1AC3AA89288C14360059816F /* UIImageView + Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		1AEBB33B288595A200DF4B90 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				FA59E14F2874CD34008FC4BE /* MusicPlayer */,
+				1AC3AA88288C141C0059816F /* Extensions */,
 				FA59E14E2874CD34008FC4BE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -238,6 +249,7 @@
 				1ABB1FA128773E0C008A2419 /* ProfileViewController.swift in Sources */,
 				1AEBB3352885900F00DF4B90 /* AuthManager.swift in Sources */,
 				1AEBB345288712F300DF4B90 /* UserProfile.swift in Sources */,
+				1AC3AA8A288C14360059816F /* UIImageView + Extension.swift in Sources */,
 				FA59E1512874CD34008FC4BE /* AppDelegate.swift in Sources */,
 				1AEBB3432887127B00DF4B90 /* APICaller.swift in Sources */,
 				FA59E1532874CD34008FC4BE /* SceneDelegate.swift in Sources */,

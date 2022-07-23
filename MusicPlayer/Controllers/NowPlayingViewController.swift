@@ -49,7 +49,7 @@ class NowPlayingViewController: UIViewController {
         return durationSong
     }()
     
-    private let progressSongView: UISlider = {
+    lazy var progressSongView: UISlider = {
         let progressSongView = UISlider()
         // Устанавливаем получения события valueChanged только тогда, когда пользователь перестает перемещать ползунок
         progressSongView.isContinuous = false
@@ -72,7 +72,7 @@ class NowPlayingViewController: UIViewController {
         return backwardButton
     }()
     
-    private let playButton: UIButton = {
+    lazy var playButton: UIButton = {
         let playButton = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 42, weight: .medium, scale: .default)
         playButton.setImage(UIImage(systemName: "play.circle", withConfiguration: config), for: .normal)

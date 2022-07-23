@@ -63,7 +63,7 @@ class MainTabBarController: UITabBarController {
         profileVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
         
         tabBar.tintColor = .systemBackground
-        
+        tabBar.unselectedItemTintColor = .darkGray
         
     }
 }
