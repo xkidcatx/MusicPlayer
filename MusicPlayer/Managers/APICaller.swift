@@ -13,7 +13,7 @@ final class APICaller {
     private init() {}
     
     struct Constants {
-        static let baseAPIURL = "https://api.spotify.com/v1/me"
+        static let baseAPIURL = "https://api.spotify.com/v1"
     }
     
     enum APIError: Error {
