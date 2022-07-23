@@ -18,6 +18,7 @@
 		A5BE36632879A44500C09FAE /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE36622879A44500C09FAE /* CollectionViewTableViewCell.swift */; };
 		A5BE36662879AB0400C09FAE /* SongCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE36652879AB0400C09FAE /* SongCollectionViewCell.swift */; };
 		AA3C27CF28782500003B70D2 /* MusicListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C27CE28782500003B70D2 /* MusicListCell.swift */; };
+		AA505AF3288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA505AF2288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 */; };
 		FA1E64332875E78D00BA21DF /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E64322875E78D00BA21DF /* NowPlayingViewController.swift */; };
 		FA1E64352875E79E00BA21DF /* MusicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E64342875E79E00BA21DF /* MusicListViewController.swift */; };
 		FA59E1512874CD34008FC4BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59E1502874CD34008FC4BE /* AppDelegate.swift */; };
@@ -39,6 +40,7 @@
 		A5BE36622879A44500C09FAE /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
 		A5BE36652879AB0400C09FAE /* SongCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA3C27CE28782500003B70D2 /* MusicListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListCell.swift; sourceTree = "<group>"; };
+		AA505AF2288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Lightwire - City of Dreams.mp3"; sourceTree = "<group>"; };
 		FA1E64322875E78D00BA21DF /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		FA1E64342875E79E00BA21DF /* MusicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListViewController.swift; sourceTree = "<group>"; };
 		FA59E14D2874CD34008FC4BE /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				FA59E1522874CD34008FC4BE /* SceneDelegate.swift */,
 				FA59E1592874CD35008FC4BE /* Assets.xcassets */,
 				FA59E15E2874CD35008FC4BE /* Info.plist */,
+				AA505AF2288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA59E15D2874CD35008FC4BE /* LaunchScreen.storyboard in Resources */,
+				AA505AF3288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 in Resources */,
 				FA59E15A2874CD35008FC4BE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
