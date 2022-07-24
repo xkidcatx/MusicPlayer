@@ -69,8 +69,13 @@ class NowPlayingViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .medium, scale: .default)
         backwardButton.setImage(UIImage(systemName: "backward.end", withConfiguration: config), for: .normal)
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
+        backwardButton.addTarget(self, action: #selector(backwardButtonAction), for: .touchUpInside)
         return backwardButton
     }()
+    
+    @objc func backwardButtonAction(sender: UIButton!) {
+        // тут надо добавить переход на трек назад
+    }
     
     lazy var playButton: UIButton = {
         let playButton = UIButton()
@@ -78,11 +83,11 @@ class NowPlayingViewController: UIViewController {
         playButton.setImage(UIImage(systemName: "play.circle", withConfiguration: config), for: .normal)
         playButton.translatesAutoresizingMaskIntoConstraints = false
         // добавляем экшн кнопке
-        playButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
         return playButton
     }()
     
-    @objc func buttonAction(sender: UIButton!) {
+    @objc func playButtonAction(sender: UIButton!) {
         let config = UIImage.SymbolConfiguration(pointSize: 42, weight: .medium, scale: .default)
         // включаем/отключаем вопсроизведение песни и меняем изображение на кнопке
         if player?.timeControlStatus == .paused {
@@ -101,8 +106,13 @@ class NowPlayingViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .medium, scale: .default)
         forwardButton.setImage(UIImage(systemName: "forward.end", withConfiguration: config), for: .normal)
         forwardButton.translatesAutoresizingMaskIntoConstraints = false
+        forwardButton.addTarget(self, action: #selector(forwardButtonAction), for: .touchUpInside)
         return forwardButton
     }()
+    
+    @objc func forwardButtonAction(sender: UIButton!) {
+        // тут надо добавить переход на трек вперед
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,16 +145,21 @@ class NowPlayingViewController: UIViewController {
         
         if let durationSongSeconds = player?.currentItem?.asset.duration.seconds {
             // отображаем длительность песни
-            durationSong.text = String(format: "%02d:%02d", Int(durationSongSeconds) / 60, Int(durationSongSeconds) % 60)
+            durationSong.text = String(format: "-%02d:%02d", Int(durationSongSeconds) / 60, Int(durationSongSeconds) % 60)
             // устанавливаем границы слайдеру в зависимости от длительности песни
             progressSongView.maximumValue = Float(durationSongSeconds)
         }
         
         // addPeriodicTimeObserver - переодические выполняется замыкание в котором обновляем текущее время песни и слайдер
         player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 10), queue: DispatchQueue.main, using: { time in
-                self.currentTimeSong.text = String(format: "%02d:%02d", Int(time.seconds) / 60, Int(time.seconds) % 60)
-                self.progressSongView.value = Float(time.seconds)
-            // устанавливаем обнуляем время, слайдер когда песня закончилась
+            
+            self.currentTimeSong.text = String(format: "%02d:%02d", Int(time.seconds) / 60, Int(time.seconds) % 60)
+            if let durationSongSeconds = self.player?.currentItem?.asset.duration.seconds {
+                self.durationSong.text = String(format: "-%02d:%02d", Int(durationSongSeconds - time.seconds) / 60, Int(durationSongSeconds - time.seconds) % 60)
+            }
+            self.progressSongView.value = Float(time.seconds)
+            
+            // обнуляем время, слайдер когда песня закончилась
             if let duration = self.player?.currentItem?.asset.duration {
 //                print(Int(duration.seconds))
 //                print(Int(time.seconds))
