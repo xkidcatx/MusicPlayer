@@ -9,11 +9,15 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let sectionTitles = ["Trending", "Popular", "Top rated", "Lates", "Upcomming"]
+    let sectionTitles = ["New Release", "Recommendations", "Top rated", "Lates", "Upcomming"]
+    
+    var newReleases: NewReleasesResponse?
+    var recommendations: RecommendationsResponse?
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifire)
+        table.register(NewReleasesTableViewCell.self, forCellReuseIdentifier: NewReleasesTableViewCell.identifire)
+        table.register(RecommendationsTableViewCell.self, forCellReuseIdentifier: RecommendationsTableViewCell.identifire)
         return table
     }()
     
@@ -28,6 +32,53 @@ class HomeViewController: UIViewController {
         ]
         view.layer.addSublayer(gradientLayer)
         createTable()
+        fetchData()
+        fetchRecommendationsData()
+    }
+    
+    private func fetchData() {
+        APICaller.shared.getNewReleases { result in
+            switch result {
+            case .success(let model):
+                self.newReleases = model
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                break
+            case .failure(let error):
+                print("Error with fetch data for get new releases, \(error)")
+                break
+            }
+        }
+    }
+    
+    private func fetchRecommendationsData() {
+        APICaller.shared.getRecommendedGenres(competion: { result in
+            switch result {
+            case .success(let model):
+                let genred = model.genres
+                var seeds = Set<String>()
+                while seeds.count < 5 {
+                    if let randomElement = genred.randomElement() {
+                        seeds.insert(randomElement)
+                    }
+                }
+                APICaller.shared.getRecommendations(genres: seeds) { res in
+                    switch res {
+                    case .success(let model):
+                        self.recommendations = model
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                        break
+                    case .failure(let error):
+                        print("Error with fetch data for recommendations, \(error)")
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        })
     }
     
     override func viewDidLayoutSubviews() {
@@ -50,11 +101,10 @@ class HomeViewController: UIViewController {
     }
 }
 
-
-
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitles.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -72,12 +122,30 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifire, for: indexPath) as? CollectionViewTableViewCell else { return UITableViewCell() }
-        return cell
+        if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendationsTableViewCell.identifire, for: indexPath) as? RecommendationsTableViewCell else { return UITableViewCell() }
+            if let data = recommendations {
+                cell.configure(with: data)
+            }
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewReleasesTableViewCell.identifire, for: indexPath) as? NewReleasesTableViewCell else { return UITableViewCell() }
+            if let data = newReleases {
+                cell.configure(with: data)
+            }
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 220
+        switch indexPath.section {
+        case 0:
+            return 220
+        case 1:
+            return 260
+        default:
+            return 220
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
