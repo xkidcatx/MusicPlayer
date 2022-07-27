@@ -68,6 +68,7 @@ class NowPlayingViewController: UIViewController {
         let backwardButton = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .medium, scale: .default)
         backwardButton.setImage(UIImage(systemName: "backward.end", withConfiguration: config), for: .normal)
+        backwardButton.tintColor = .black
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
         backwardButton.addTarget(self, action: #selector(backwardButtonAction), for: .touchUpInside)
         return backwardButton
@@ -81,6 +82,7 @@ class NowPlayingViewController: UIViewController {
         let playButton = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 42, weight: .medium, scale: .default)
         playButton.setImage(UIImage(systemName: "play.circle", withConfiguration: config), for: .normal)
+        playButton.tintColor = .black
         playButton.translatesAutoresizingMaskIntoConstraints = false
         // добавляем экшн кнопке
         playButton.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
@@ -105,6 +107,7 @@ class NowPlayingViewController: UIViewController {
         let forwardButton = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .medium, scale: .default)
         forwardButton.setImage(UIImage(systemName: "forward.end", withConfiguration: config), for: .normal)
+        forwardButton.tintColor = .black
         forwardButton.translatesAutoresizingMaskIntoConstraints = false
         forwardButton.addTarget(self, action: #selector(forwardButtonAction), for: .touchUpInside)
         return forwardButton

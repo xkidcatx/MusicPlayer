@@ -11,6 +11,7 @@
 		1ABB1F9F28773C53008A2419 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB1F9E28773C53008A2419 /* MainTabBarController.swift */; };
 		1ABB1FA128773E0C008A2419 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB1FA028773E0C008A2419 /* ProfileViewController.swift */; };
 		1AC3AA8A288C14360059816F /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3AA89288C14360059816F /* UIImageView + Extension.swift */; };
+		1AEB6D66289193C400283AAB /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB6D65289193C400283AAB /* MiniPlayerViewController.swift */; };
 		1AEBB3352885900F00DF4B90 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEBB3342885900F00DF4B90 /* AuthManager.swift */; };
 		1AEBB3372885917800DF4B90 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEBB3362885917800DF4B90 /* AuthViewController.swift */; };
 		1AEBB3392885935600DF4B90 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEBB3382885935600DF4B90 /* WelcomeViewController.swift */; };
@@ -52,6 +53,7 @@
 		1ABB1F9E28773C53008A2419 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1ABB1FA028773E0C008A2419 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1AC3AA89288C14360059816F /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
+		1AEB6D65289193C400283AAB /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		1AEBB3342885900F00DF4B90 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		1AEBB3362885917800DF4B90 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1AEBB3382885935600DF4B90 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				1ABB1FA028773E0C008A2419 /* ProfileViewController.swift */,
 				1AEBB3362885917800DF4B90 /* AuthViewController.swift */,
 				1AEBB3382885935600DF4B90 /* WelcomeViewController.swift */,
+				1AEB6D65289193C400283AAB /* MiniPlayerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			files = (
 				A5C7E7CF289156CB0004242C /* FeaturedPlaylistsCollectionViewCell.swift in Sources */,
 				FA1E64332875E78D00BA21DF /* NowPlayingViewController.swift in Sources */,
+				1AEB6D66289193C400283AAB /* MiniPlayerViewController.swift in Sources */,
 				A5F89815289013E800E8EBF3 /* RecommendationsCollectionViewCell.swift in Sources */,
 				FA1E64352875E79E00BA21DF /* MusicListViewController.swift in Sources */,
 				1ABB1F9F28773C53008A2419 /* MainTabBarController.swift in Sources */,
@@ -345,17 +349,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		FA59E15B2874CD35008FC4BE /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA59E15C2874CD35008FC4BE /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FA59E15F2874CD35008FC4BE /* Debug */ = {

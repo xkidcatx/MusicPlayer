@@ -33,12 +33,12 @@ class RecommendationsCollectionViewCell: BaseCollectionViewCell {
             imageView.heightAnchor.constraint(equalToConstant: 75),
             imageView.widthAnchor.constraint(equalToConstant: 75),
             
-            title.bottomAnchor.constraint(equalTo: subtitle.topAnchor, constant: -2.5),
+            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             title.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
             title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             title.heightAnchor.constraint(equalToConstant: 20),
             
-            subtitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor),
             subtitle.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
             subtitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             subtitle.heightAnchor.constraint(equalToConstant: 20),

@@ -35,13 +35,13 @@ class NewReleasesCollectionViewCell: BaseCollectionViewCell {
             imageView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
             
             title.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2.5),
-            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             title.heightAnchor.constraint(equalToConstant: 20),
             
             subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 2.5),
-            subtitle.trailingAnchor.constraint(equalTo: title.trailingAnchor),
-            subtitle.leadingAnchor.constraint(equalTo: title.leadingAnchor),
+            subtitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            subtitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             subtitle.heightAnchor.constraint(equalToConstant: 20),
             
         ])
