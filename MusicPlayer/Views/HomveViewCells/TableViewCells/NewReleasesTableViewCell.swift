@@ -22,7 +22,6 @@ class NewReleasesTableViewCell: UITableViewCell {
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        //layout.itemSize = CGSize(width: 160, height: 220)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -59,7 +58,7 @@ extension NewReleasesTableViewCell: UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: contentView.frame.width / 2 - 10, height: 220)
+        return CGSize(width: contentView.frame.width / 2 - 10, height: contentView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -69,15 +68,11 @@ extension NewReleasesTableViewCell: UICollectionViewDelegateFlowLayout, UICollec
             if let image = imageCache.object(forKey: album.images[0].url as NSString),
                let albumName = albumCache.object(forKey: album.name as NSString),
                let artistName = artistCache.object(forKey: album.artists[0].name as NSString) {
-                cell.title.text = String(albumName)
-                cell.subtitle.text = String(artistName)
-                cell.imageView.image = image
+                cell.setupData(image: image, title: String(albumName), subTitle: String(artistName))
             } else {
                 fetchImage(from: album.images[0].url) { imageData in
                     if let image = imageData {
-                        cell.title.text = album.name
-                        cell.subtitle.text = album.artists[0].name
-                        cell.imageView.image = UIImage(data: image)
+                        cell.setupData(image: UIImage(data: image), title: album.name, subTitle: album.artists[0].name)
                         
                         self.imageCache.setObject(UIImage(data: image)!, forKey: album.images[0].url as NSString)
                         self.albumCache.setObject(album.name as NSString, forKey: album.name as NSString)

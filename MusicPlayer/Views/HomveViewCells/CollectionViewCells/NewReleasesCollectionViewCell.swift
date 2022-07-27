@@ -7,37 +7,9 @@
 
 import UIKit
 
-class NewReleasesCollectionViewCell: UICollectionViewCell {
+class NewReleasesCollectionViewCell: BaseCollectionViewCell {
     
     static let identifire = "NewReleasesCollectionViewCell"
-    
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "test")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 10
-        imageView.layer.masksToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    let title: UILabel = {
-        let title = UILabel()
-        title.text = "Name of Song"
-        title.font = .systemFont(ofSize: 17, weight: .bold)
-        title.textColor = .darkGray
-        title.translatesAutoresizingMaskIntoConstraints = false
-        return title
-    }()
-    
-    let subtitle: UILabel = {
-        let subtitle = UILabel()
-        subtitle.text = "Artist"
-        subtitle.font = .systemFont(ofSize: 15)
-        subtitle.textColor = .lightGray
-        subtitle.translatesAutoresizingMaskIntoConstraints = false
-        return subtitle
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,7 +20,7 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
+    override func setupUI() {
         contentView.backgroundColor = .systemGroupedBackground
         contentView.layer.cornerRadius = 10        
         

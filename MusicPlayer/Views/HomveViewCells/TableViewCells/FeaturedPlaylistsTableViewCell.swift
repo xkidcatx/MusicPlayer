@@ -1,17 +1,17 @@
 //
-//  RecommendationsTableViewCell.swift
+//  FeaturedPlaylistsTableViewCell.swift
 //  MusicPlayer
 //
-//  Created by Даниил Симахин on 26.07.2022.
+//  Created by Даниил Симахин on 27.07.2022.
 //
 
 import UIKit
 
-class RecommendationsTableViewCell: UITableViewCell {
+class FeaturedPlaylistsTableViewCell: UITableViewCell {
     
-    static let identifire = "RecommendationsTableViewCell"
-    
-    var recommendations: RecommendationsResponse? {
+    static let identifire = "FeaturedPlaylistsTableViewCell"
+
+    var featuredPlaylists: FeaturedPlaylistsResponse? {
         didSet {
             collectionView.reloadData()
         }
@@ -19,10 +19,10 @@ class RecommendationsTableViewCell: UITableViewCell {
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(RecommendationsCollectionViewCell.self, forCellWithReuseIdentifier: RecommendationsCollectionViewCell.identifire)
+        collection.register(FeaturedPlaylistsCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistsCollectionViewCell.identifire)
         return collection
     }()
     
@@ -38,33 +38,33 @@ class RecommendationsTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
         collectionView.frame = contentView.bounds
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with model: RecommendationsResponse) {
-        self.recommendations = model
+    func configure(with model: FeaturedPlaylistsResponse) {
+        self.featuredPlaylists = model
     }
 }
 
-extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension FeaturedPlaylistsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recommendations?.tracks.count ?? 1
+        return featuredPlaylists?.playlists.items.count ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: contentView.frame.width, height: 75)
+        return CGSize(width: contentView.frame.width, height: contentView.frame.width)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendationsCollectionViewCell.identifire, for: indexPath) as? RecommendationsCollectionViewCell else { return UICollectionViewCell() }
-        if let data = recommendations {
-            let track = data.tracks[indexPath.row]
-            fetchImage(from: track.album.images[0].url) { imageData in
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistsCollectionViewCell.identifire, for: indexPath) as? FeaturedPlaylistsCollectionViewCell else { return UICollectionViewCell() }
+        if let data = featuredPlaylists?.playlists {
+            let playlist = data.items[indexPath.row]
+            fetchImage(from: playlist.images[0].url) { imageData in
                 if let image = imageData {
-                    cell.setupData(image: UIImage(data: image), title: track.name, subTitle: track.artists[0].name)
+                    cell.setupData(image: UIImage(data: image), title: "", subTitle: "")
                 } else {
                     print("Error loading image");
                 }
