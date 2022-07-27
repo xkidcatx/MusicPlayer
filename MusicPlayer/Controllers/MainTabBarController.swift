@@ -11,7 +11,7 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupTabBar()
         setupItems()
         
@@ -48,19 +48,40 @@ class MainTabBarController: UITabBarController {
         let musicListVC = MusicListViewController()
         let profileVC = ProfileViewController()
         
-        setViewControllers([homeVC,nowPlayingVC,musicListVC,profileVC], animated: true)
+        homeVC.title = "Home"
+        nowPlayingVC.title = "Now Playing"
+        musicListVC.title = "Music List"
+        profileVC.title = "Profile"
         
-        guard let items = tabBar.items else { return }
         
-        items[0].title = "Home"
-        items[1].title = "Now Playing"
-        items[2].title = "Music List"
-        items[3].title = "Profile"
+        homeVC.navigationItem.largeTitleDisplayMode = .always
+        nowPlayingVC.navigationItem.largeTitleDisplayMode = .always
+        musicListVC.navigationItem.largeTitleDisplayMode = .always
+        profileVC.navigationItem.largeTitleDisplayMode = .always
         
-        homeVC.tabBarItem.image = UIImage(systemName: "house")
-        nowPlayingVC.tabBarItem.image = UIImage(systemName: "play.circle")
-        musicListVC.tabBarItem.image = UIImage(systemName: "music.note.list")
-        profileVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        let nav1 = UINavigationController(rootViewController: homeVC)
+        let nav2 = UINavigationController(rootViewController: nowPlayingVC)
+        let nav3 = UINavigationController(rootViewController: musicListVC)
+        let nav4 = UINavigationController(rootViewController: profileVC)
+        
+//        guard let items = tabBar.items else { return }
+//
+//        items[0].title = "Home"
+//        items[1].title = "Now Playing"
+//        items[2].title = "Music List"
+//        items[3].title = "Profile"
+        
+        nav1.tabBarItem.image = UIImage(systemName: "house")
+        nav2.tabBarItem.image = UIImage(systemName: "play.circle")
+        nav3.tabBarItem.image = UIImage(systemName: "music.note.list")
+        nav4.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        
+        nav1.navigationBar.prefersLargeTitles = true
+        nav2.navigationBar.prefersLargeTitles = true
+        nav3.navigationBar.prefersLargeTitles = true
+        nav4.navigationBar.prefersLargeTitles = true
+        
+        setViewControllers([nav1,nav2,nav3,nav4], animated: true)
         
         tabBar.tintColor = .systemBackground
         tabBar.unselectedItemTintColor = .darkGray
