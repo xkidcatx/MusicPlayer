@@ -328,8 +328,11 @@
 				A5C7E7C5289152EE0004242C /* AlbumsResponse.swift in Sources */,
 				1AEBB3352885900F00DF4B90 /* AuthManager.swift in Sources */,
 				1AEBB345288712F300DF4B90 /* UserProfile.swift in Sources */,
+<<<<<<< HEAD
 				A59A5CB0288AB108005B04AA /* Artist.swift in Sources */,
+=======
 				1AC3AA8A288C14360059816F /* UIImageView + Extension.swift in Sources */,
+>>>>>>> main
 				FA59E1512874CD34008FC4BE /* AppDelegate.swift in Sources */,
 				A5C7E7C9289153400004242C /* Playlist.swift in Sources */,
 				A5C7E7C72891532A0004242C /* User.swift in Sources */,
@@ -345,17 +348,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		FA59E15B2874CD35008FC4BE /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA59E15C2874CD35008FC4BE /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FA59E15F2874CD35008FC4BE /* Debug */ = {
