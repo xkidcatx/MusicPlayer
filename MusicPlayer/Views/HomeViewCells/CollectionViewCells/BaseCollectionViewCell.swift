@@ -47,7 +47,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        contentView.backgroundColor = .systemGroupedBackground
+        contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 10
     }
     

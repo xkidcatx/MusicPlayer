@@ -54,22 +54,4 @@ extension BaseTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return UICollectionViewCell()
     }
-    
-    func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
-        let session = URLSession.shared
-        let url = URL(string: urlString)
-        
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
-            if error != nil {
-                print("Error fetching the image!")
-                completionHandler(nil)
-            } else {
-                DispatchQueue.main.async {
-                    completionHandler(data)
-                }
-            }
-        }
-        
-        dataTask.resume()
-    }
 }
