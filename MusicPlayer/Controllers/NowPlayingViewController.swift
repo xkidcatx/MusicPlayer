@@ -11,7 +11,7 @@ import AVFoundation
 class NowPlayingViewController: UIViewController {
     
     private var playerStop = true
-    
+    private var track: AudioTrack?
     private let imageSong: UIImageView = {
         let imageSong = UIImageView()
         imageSong.image = UIImage(named: "Lightwire - City of Dreams")
@@ -24,7 +24,7 @@ class NowPlayingViewController: UIViewController {
     
     private let titleSong: UILabel = {
         let titleSong = UILabel()
-        titleSong.text = "Lightwire - City of Dreams"
+//        titleSong.text = "Lightwire - City of Dreams"
         titleSong.font = .systemFont(ofSize: 25, weight: .bold)
         titleSong.textColor = .darkGray
         titleSong.numberOfLines = 0
@@ -48,6 +48,14 @@ class NowPlayingViewController: UIViewController {
         durationSong.translatesAutoresizingMaskIntoConstraints = false
         return durationSong
     }()
+    
+    func set(_ data: AudioTrack?) {
+        track = data
+        
+        titleSong.text = data?.name
+        
+        print(track?.preview_url)
+    }
     
     lazy var progressSongView: UISlider = {
         let progressSongView = UISlider()
@@ -91,7 +99,7 @@ class NowPlayingViewController: UIViewController {
     
     @objc func playButtonAction(sender: UIButton!) {
         let config = UIImage.SymbolConfiguration(pointSize: 42, weight: .medium, scale: .default)
-        // включаем/отключаем вопсроизведение песни и меняем изображение на кнопке
+        // включаем/отключаем воспроизведение песни и меняем изображение на кнопке
         if player?.timeControlStatus == .paused {
             playButton.setImage(UIImage(systemName: "pause.circle", withConfiguration: config), for: .normal)
             player?.play()
@@ -135,16 +143,20 @@ class NowPlayingViewController: UIViewController {
     
     // Декларируем аудиоплеер в общей области видимости
     var player: AVPlayer?
-
+    
     func playerConfiguration() {
         // создаем плеер с конкретной песней
-        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
-            do {
-                player = try AVPlayer(url: url)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        guard let url = URL(string: track?.preview_url ?? "") else { return }
+        
+        player = AVPlayer(url: url)
+        
+        //        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
+        //            do {
+        //                player =  AVPlayer(url: url)
+        //            } catch {
+        //                print(error.localizedDescription)
+        //            }
+        //        }
         
         if let durationSongSeconds = player?.currentItem?.asset.duration.seconds {
             // отображаем длительность песни
@@ -153,7 +165,7 @@ class NowPlayingViewController: UIViewController {
             progressSongView.maximumValue = Float(durationSongSeconds)
         }
         
-        // addPeriodicTimeObserver - переодические выполняется замыкание в котором обновляем текущее время песни и слайдер
+        // addPeriodicTimeObserver - периодические выполняется замыкание в котором обновляем текущее время песни и слайдер
         player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 10), queue: DispatchQueue.main, using: { time in
             
             self.currentTimeSong.text = String(format: "%02d:%02d", Int(time.seconds) / 60, Int(time.seconds) % 60)
@@ -164,8 +176,8 @@ class NowPlayingViewController: UIViewController {
             
             // обнуляем время, слайдер когда песня закончилась
             if let duration = self.player?.currentItem?.asset.duration {
-//                print(Int(duration.seconds))
-//                print(Int(time.seconds))
+                //                print(Int(duration.seconds))
+                //                print(Int(time.seconds))
                 if time == duration {
                     self.player?.pause()
                     self.player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1000))
