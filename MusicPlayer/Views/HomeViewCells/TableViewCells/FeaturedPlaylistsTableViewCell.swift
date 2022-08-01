@@ -10,6 +10,7 @@ import UIKit
 class FeaturedPlaylistsTableViewCell: UITableViewCell {
     
     static let identifire = "FeaturedPlaylistsTableViewCell"
+    public var navigationController: UINavigationController?
 
     var featuredPlaylists: FeaturedPlaylistsResponse? {
         didSet {
@@ -31,6 +32,8 @@ class FeaturedPlaylistsTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = .clear
+        contentView.backgroundColor = .clear
     }
     
     override func layoutSubviews() {
@@ -50,6 +53,13 @@ class FeaturedPlaylistsTableViewCell: UITableViewCell {
 
 extension FeaturedPlaylistsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let playlist = featuredPlaylists?.playlists.items[indexPath.row] else { return }
+        let vc = PlaylistDetailViewController(playlist: playlist)
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return featuredPlaylists?.playlists.items.count ?? 1
     }
@@ -62,7 +72,7 @@ extension FeaturedPlaylistsTableViewCell: UICollectionViewDelegateFlowLayout, UI
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistsCollectionViewCell.identifire, for: indexPath) as? FeaturedPlaylistsCollectionViewCell else { return UICollectionViewCell() }
         if let data = featuredPlaylists?.playlists {
             let playlist = data.items[indexPath.row]
-            fetchImage(from: playlist.images[0].url) { imageData in
+            APICaller.shared.fetchImage(from: playlist.images[0].url) { imageData in
                 if let image = imageData {
                     cell.setupData(image: UIImage(data: image), title: "", subTitle: "")
                 } else {
@@ -71,22 +81,5 @@ extension FeaturedPlaylistsTableViewCell: UICollectionViewDelegateFlowLayout, UI
             }
         }
         return cell
-    }
-    
-    func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
-        let session = URLSession.shared
-        let url = URL(string: urlString)
-        
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
-            if error != nil {
-                print("Error fetching the image!")
-                completionHandler(nil)
-            } else {
-                DispatchQueue.main.async {
-                    completionHandler(data)
-                }
-            }
-        }
-        dataTask.resume()
     }
 }

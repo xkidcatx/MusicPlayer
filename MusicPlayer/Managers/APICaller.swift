@@ -52,6 +52,7 @@ final class APICaller {
                 }
                 do {
                     let result = try JSONDecoder().decode(FeaturedPlaylistsResponse.self, from: data)
+                    //print(result)
                     completion(.success(result))
                 } catch {
                     completion(.failure(APIError.failedToGetData))
@@ -118,6 +119,60 @@ final class APICaller {
             }
             task.resume()
         }
+    }
+    
+    public func getAlbumDetail(with album: Album, compeltion: @escaping((Result<AlbumDetailResponse, Error>) -> Void)) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/albums/" + album.id), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    compeltion(.failure(APIError.failedToGetData))
+                    return
+                }
+                do {
+                    let result = try JSONDecoder().decode(AlbumDetailResponse.self, from: data)
+                    compeltion(.success(result))
+                } catch {
+                    compeltion(.failure(APIError.failedToGetData))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    public func getPlaylistDetail(with playlist: Playlist, completion: @escaping((Result<PlaylistDetailResponse, Error>) -> Void)) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/playlists/" + playlist.id), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                do {
+                    let result = try JSONDecoder().decode(PlaylistDetailResponse.self, from: data)
+                    completion(.success(result))
+                    //print(result)
+                } catch {
+                    completion(.failure(APIError.failedToGetData))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
+        let session = URLSession.shared
+        guard let url = URL(string: urlString) else { return }
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print("Error fetching the image!")
+                completionHandler(nil)
+            } else {
+                DispatchQueue.main.async {
+                    completionHandler(data)
+                }
+            }
+        }
+        
+        dataTask.resume()
     }
     
     //MARK: - Private
