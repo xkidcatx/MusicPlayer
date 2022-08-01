@@ -19,12 +19,17 @@ class MainTabBarController: UITabBarController {
         return $0
     }(UIView())
     
+    private let bottomView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTabBar()
         setupItems()
         addChildView()
+        setBottomView()
         setConstraints()
         miniPlayer.delegate = self
     }
@@ -32,16 +37,16 @@ class MainTabBarController: UITabBarController {
     
     private func setupTabBar() {
         let layer = CAShapeLayer()
-        layer.path = UIBezierPath(roundedRect: CGRect(x: 2, y: self.tabBar.bounds.minY - 20, width: self.tabBar.bounds.width - 4, height: self.tabBar.bounds.height + 40), cornerRadius: (self.tabBar.frame.width/2)).cgPath
-        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.path = UIBezierPath(roundedRect: CGRect(x: 0, y: self.tabBar.bounds.minY - 20, width: self.tabBar.bounds.width - 0, height: self.tabBar.bounds.height + 40), cornerRadius: (self.tabBar.frame.width/2)).cgPath
+        layer.shadowColor = .none
         layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
         layer.shadowRadius = 25.0
-        layer.shadowOpacity = 0.3
+        layer.shadowOpacity = 0.0
         layer.borderWidth = 1.0
         layer.opacity = 1.0
         layer.isHidden = false
         layer.masksToBounds = false
-        layer.fillColor = UIColor.black.cgColor
+        layer.fillColor = UIColor(named: "DarkColour")?.cgColor //.black.cgColor
         
         self.tabBar.layer.insertSublayer(layer, at: 0)
         
@@ -52,6 +57,11 @@ class MainTabBarController: UITabBarController {
         
         self.tabBar.itemWidth = 30.0
         self.tabBar.itemPositioning = .fill
+
+        let app = UITabBarAppearance()
+        app.backgroundEffect = .none
+        app.shadowColor = .clear
+        tabBar.standardAppearance = app
     }
     
     private func setupItems() {
@@ -88,8 +98,8 @@ class MainTabBarController: UITabBarController {
         
         setViewControllers([nav1,nav2,nav3,nav4,miniPlayer], animated: true)
         
-        tabBar.tintColor = .systemBackground
-        tabBar.unselectedItemTintColor = .darkGray
+        tabBar.unselectedItemTintColor = UIColor(named: "MiddleColour")
+        tabBar.tintColor = UIColor(named: "LightColour")
         
         if let childIndex = viewControllers?.firstIndex(of: miniPlayer) {
             viewControllers?.remove(at: childIndex)
@@ -98,10 +108,13 @@ class MainTabBarController: UITabBarController {
     }
     
     func addChildView() {
-        view.addSubview(containerView)
+        view.insertSubview(containerView, at: 1)
+        view.insertSubview(bottomView, at: 2)
+        //view.addSubview(containerView)
         addChild(miniPlayer)
         containerView.addSubview(miniPlayer.view)
         miniPlayer.didMove(toParent: self)
+        tabBar.sendSubviewToBack(containerView)
     }
 }
 
@@ -112,10 +125,10 @@ extension MainTabBarController {
         let g = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: g.leadingAnchor, constant: 35),
-            containerView.trailingAnchor.constraint(equalTo: g.trailingAnchor, constant: -35),
-            containerView.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -20),
-            containerView.heightAnchor.constraint(equalToConstant: 64),
+            containerView.leadingAnchor.constraint(equalTo: g.leadingAnchor, constant: 0),
+            containerView.trailingAnchor.constraint(equalTo: g.trailingAnchor, constant: 0),
+            containerView.bottomAnchor.constraint(equalTo: bottomView.topAnchor, constant: +20),
+            containerView.heightAnchor.constraint(equalToConstant: 140),
             
             miniPlayer.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             miniPlayer.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
@@ -130,5 +143,15 @@ extension MainTabBarController: MiniPlayerDelegate {
         let vc = NowPlayingViewController()
         vc.modalPresentationStyle = .formSheet
         present(vc, animated: true)
+    }
+}
+
+extension MainTabBarController {
+    private func setBottomView() {
+        bottomView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        bottomView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomView.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: +25).isActive = true
+        bottomView.backgroundColor = UIColor(named: "DarkColour")
     }
 }

@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.backgroundColor = UIColor(named: "LightColour")
         createGradient()
         createTable()
         fetchNewReleasesData()
