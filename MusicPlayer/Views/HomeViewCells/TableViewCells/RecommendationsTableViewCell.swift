@@ -10,6 +10,7 @@ import UIKit
 class RecommendationsTableViewCell: UITableViewCell {
     
     static let identifire = "RecommendationsTableViewCell"
+    public var navigationController: UINavigationController?
     
     var recommendations: RecommendationsResponse? {
         didSet {
@@ -50,6 +51,13 @@ class RecommendationsTableViewCell: UITableViewCell {
 
 extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let album = recommendations?.tracks[indexPath.row].album else { return }
+        let vc = AlbumDetailViewController(album: album)
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return recommendations?.tracks.count ?? 1
     }
@@ -62,7 +70,7 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendationsCollectionViewCell.identifire, for: indexPath) as? RecommendationsCollectionViewCell else { return UICollectionViewCell() }
         if let data = recommendations {
             let track = data.tracks[indexPath.row]
-            fetchImage(from: track.album.images[0].url) { imageData in
+            APICaller.shared.fetchImage(from: track.album?.images[0].url ?? "") { imageData in
                 if let image = imageData {
                     cell.setupData(image: UIImage(data: image), title: track.name, subTitle: track.artists[0].name)
                 } else {
@@ -71,22 +79,5 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
             }
         }
         return cell
-    }
-    
-    func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
-        let session = URLSession.shared
-        let url = URL(string: urlString)
-        
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
-            if error != nil {
-                print("Error fetching the image!")
-                completionHandler(nil)
-            } else {
-                DispatchQueue.main.async {
-                    completionHandler(data)
-                }
-            }
-        }
-        dataTask.resume()
     }
 }

@@ -21,7 +21,7 @@ class NewReleasesCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func setupUI() {
-        contentView.backgroundColor = .systemGroupedBackground
+        contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 10        
         
         contentView.addSubview(imageView)
