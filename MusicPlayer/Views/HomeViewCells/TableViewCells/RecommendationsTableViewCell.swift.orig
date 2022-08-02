@@ -10,7 +10,12 @@ import UIKit
 class RecommendationsTableViewCell: UITableViewCell {
     
     static let identifire = "RecommendationsTableViewCell"
+<<<<<<< HEAD:MusicPlayer/Views/HomveViewCells/TableViewCells/RecommendationsTableViewCell.swift
     var delegate: RecommendationsCellDelegate?
+=======
+    public var navigationController: UINavigationController?
+    
+>>>>>>> main:MusicPlayer/Views/HomeViewCells/TableViewCells/RecommendationsTableViewCell.swift
     var recommendations: RecommendationsResponse? {
         didSet {
             collectionView.reloadData()
@@ -50,6 +55,13 @@ class RecommendationsTableViewCell: UITableViewCell {
 
 extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let album = recommendations?.tracks[indexPath.row].album else { return }
+        let vc = AlbumDetailViewController(album: album)
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return recommendations?.tracks.count ?? 1
     }
@@ -62,7 +74,7 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendationsCollectionViewCell.identifire, for: indexPath) as? RecommendationsCollectionViewCell else { return UICollectionViewCell() }
         if let data = recommendations {
             let track = data.tracks[indexPath.row]
-            fetchImage(from: track.album.images[0].url) { imageData in
+            APICaller.shared.fetchImage(from: track.album?.images[0].url ?? "") { imageData in
                 if let image = imageData {
                     cell.setupData(image: UIImage(data: image), title: track.name, subTitle: track.artists[0].name)
                 } else {
@@ -72,6 +84,7 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         }
         return cell
     }
+<<<<<<< HEAD:MusicPlayer/Views/HomveViewCells/TableViewCells/RecommendationsTableViewCell.swift
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.recommendationsCellDelegate(index: indexPath.row)
@@ -93,4 +106,6 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         }
         dataTask.resume()
     }
+=======
+>>>>>>> main:MusicPlayer/Views/HomeViewCells/TableViewCells/RecommendationsTableViewCell.swift
 }

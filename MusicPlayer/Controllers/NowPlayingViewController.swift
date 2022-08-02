@@ -127,7 +127,6 @@ class NowPlayingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
         view.addSubview(imageSong)
         view.addSubview(titleSong)

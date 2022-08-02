@@ -32,6 +32,7 @@ class HomeViewController: UIViewController, RecommendationsCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.backgroundColor = UIColor(named: "LightColour")
         createGradient()
         createTable()
         fetchNewReleasesData()
@@ -120,7 +121,8 @@ class HomeViewController: UIViewController, RecommendationsCellDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
+        let size = CGRect(x: view.bounds.origin.x, y: view.bounds.origin.y, width: view.bounds.width, height: view.bounds.height - 129)
+        tableView.frame = size
     }
     
     func createTable() {
@@ -163,20 +165,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: NewReleasesTableViewCell.identifire, for: indexPath) as? NewReleasesTableViewCell else { return UITableViewCell() }
             if let data = newReleases {
                 cell.configure(with: data)
+                cell.navigationController = self.navigationController
             }
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FeaturedPlaylistsTableViewCell.identifire, for: indexPath) as? FeaturedPlaylistsTableViewCell else { return UITableViewCell() }
             if let data = featuredPlaylists {
                 cell.configure(with: data)
+                cell.navigationController = self.navigationController
             }
-            
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendationsTableViewCell.identifire, for: indexPath) as? RecommendationsTableViewCell else { return UITableViewCell() }
             cell.delegate = self
             if let data = recommendations {
                 cell.configure(with: data)
+                cell.navigationController = self.navigationController
             }
             return cell
         default:
