@@ -24,7 +24,7 @@ class NowPlayingViewController: UIViewController {
     
     private let titleSong: UILabel = {
         let titleSong = UILabel()
-//        titleSong.text = "Lightwire - City of Dreams"
+        titleSong.text = "Lightwire - City of Dreams"
         titleSong.font = .systemFont(ofSize: 25, weight: .bold)
         titleSong.textColor = .darkGray
         titleSong.numberOfLines = 0
@@ -48,14 +48,6 @@ class NowPlayingViewController: UIViewController {
         durationSong.translatesAutoresizingMaskIntoConstraints = false
         return durationSong
     }()
-    
-    func set(_ data: AudioTrack?) {
-        track = data
-        
-        titleSong.text = data?.name
-        
-        print(track?.preview_url)
-    }
     
     lazy var progressSongView: UISlider = {
         let progressSongView = UISlider()
@@ -137,25 +129,33 @@ class NowPlayingViewController: UIViewController {
         view.addSubview(playButton)
         view.addSubview(forwardButton)
         setupUI()
-        playerConfiguration()
+//        playerConfiguration()
+        set()
     }
     
     // Декларируем аудиоплеер в общей области видимости
     var player: AVPlayer?
     
-    func playerConfiguration() {
-        // создаем плеер с конкретной песней
-        guard let url = URL(string: track?.preview_url ?? "") else { return }
-        
-        player = AVPlayer(url: url)
-        
-        //        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
-        //            do {
-        //                player =  AVPlayer(url: url)
-        //            } catch {
-        //                print(error.localizedDescription)
-        //            }
-        //        }
+    func set(_ data: AudioTrack? = nil) {
+        track = data
+        //создаем URL
+        if let url = URL(string: track?.preview_url ?? "") {
+            do {
+                //предаем в плеер ссылку с музыков
+                player =  AVPlayer(url: url)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        //запускаем трек
+        player?.play()
+//                        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
+//                            do {
+//                                player =  AVPlayer(url: url)
+//                            } catch {
+//                                print(error.localizedDescription)
+//                            }
+//                        }
         
         if let durationSongSeconds = player?.currentItem?.asset.duration.seconds {
             // отображаем длительность песни
@@ -185,7 +185,12 @@ class NowPlayingViewController: UIViewController {
                 }
             }
         })
+        
+        
     }
+//    func playerConfiguration() {
+//
+//    }
     
     func setupUI() {
         NSLayoutConstraint.activate([
