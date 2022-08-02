@@ -5,13 +5,9 @@
 //  Created by Gleb on 05.07.2022.
 //
 
-protocol RecommendationsCellDelegate {
-    func recommendationsCellDelegate(index: Int)
-}
-
 import UIKit
 
-class HomeViewController: UIViewController, RecommendationsCellDelegate {
+class HomeViewController: UIViewController {
     
     let sectionTitles = ["New Release", "Featured Playlists", "Recommendations"]
     
@@ -38,13 +34,6 @@ class HomeViewController: UIViewController, RecommendationsCellDelegate {
         fetchNewReleasesData()
         fetchRecommendationsData()
         fetchFeaturedPlaylistsData()
-    }
-    
-    func recommendationsCellDelegate(index: Int) {
-        let vc = NowPlayingViewController()
-        let data = recommendations?.tracks[index]
-        vc.set(data)
-        tabBarController?.selectedIndex = 1
     }
     
     private func createGradient() {
@@ -177,7 +166,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendationsTableViewCell.identifire, for: indexPath) as? RecommendationsTableViewCell else { return UITableViewCell() }
-            cell.delegate = self
             if let data = recommendations {
                 cell.configure(with: data)
                 cell.navigationController = self.navigationController
@@ -203,13 +191,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
-            print(indexPath.row)
-        default: break
-        }
     }
 }

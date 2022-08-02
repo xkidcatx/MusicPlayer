@@ -52,7 +52,6 @@ final class APICaller {
                 }
                 do {
                     let result = try JSONDecoder().decode(FeaturedPlaylistsResponse.self, from: data)
-                    //print(result)
                     completion(.success(result))
                 } catch {
                     completion(.failure(APIError.failedToGetData))
@@ -149,7 +148,6 @@ final class APICaller {
                 do {
                     let result = try JSONDecoder().decode(PlaylistDetailResponse.self, from: data)
                     completion(.success(result))
-                    //print(result)
                 } catch {
                     completion(.failure(APIError.failedToGetData))
                 }
