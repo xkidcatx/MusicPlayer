@@ -11,7 +11,7 @@ import AVFoundation
 class NowPlayingViewController: UIViewController {
     
     private var playerStop = true
-    
+    private var track: AudioTrack?
     private let imageSong: UIImageView = {
         let imageSong = UIImageView()
         imageSong.image = UIImage(named: "Lightwire - City of Dreams")
@@ -91,7 +91,7 @@ class NowPlayingViewController: UIViewController {
     
     @objc func playButtonAction(sender: UIButton!) {
         let config = UIImage.SymbolConfiguration(pointSize: 42, weight: .medium, scale: .default)
-        // включаем/отключаем вопсроизведение песни и меняем изображение на кнопке
+        // включаем/отключаем воспроизведение песни и меняем изображение на кнопке
         if player?.timeControlStatus == .paused {
             playButton.setImage(UIImage(systemName: "pause.circle", withConfiguration: config), for: .normal)
             player?.play()
@@ -129,21 +129,33 @@ class NowPlayingViewController: UIViewController {
         view.addSubview(playButton)
         view.addSubview(forwardButton)
         setupUI()
-        playerConfiguration()
+//        playerConfiguration()
+        set()
     }
     
     // Декларируем аудиоплеер в общей области видимости
     var player: AVPlayer?
-
-    func playerConfiguration() {
-        // создаем плеер с конкретной песней
-        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
+    
+    func set(_ data: AudioTrack? = nil) {
+        track = data
+        //создаем URL
+        if let url = URL(string: track?.preview_url ?? "") {
             do {
-                player = try AVPlayer(url: url)
+                //предаем в плеер ссылку с музыков
+                player =  AVPlayer(url: url)
             } catch {
                 print(error.localizedDescription)
             }
         }
+        //запускаем трек
+        player?.play()
+//                        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
+//                            do {
+//                                player =  AVPlayer(url: url)
+//                            } catch {
+//                                print(error.localizedDescription)
+//                            }
+//                        }
         
         if let durationSongSeconds = player?.currentItem?.asset.duration.seconds {
             // отображаем длительность песни
@@ -152,7 +164,7 @@ class NowPlayingViewController: UIViewController {
             progressSongView.maximumValue = Float(durationSongSeconds)
         }
         
-        // addPeriodicTimeObserver - переодические выполняется замыкание в котором обновляем текущее время песни и слайдер
+        // addPeriodicTimeObserver - периодические выполняется замыкание в котором обновляем текущее время песни и слайдер
         player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 10), queue: DispatchQueue.main, using: { time in
             
             self.currentTimeSong.text = String(format: "%02d:%02d", Int(time.seconds) / 60, Int(time.seconds) % 60)
@@ -163,8 +175,8 @@ class NowPlayingViewController: UIViewController {
             
             // обнуляем время, слайдер когда песня закончилась
             if let duration = self.player?.currentItem?.asset.duration {
-//                print(Int(duration.seconds))
-//                print(Int(time.seconds))
+                //                print(Int(duration.seconds))
+                //                print(Int(time.seconds))
                 if time == duration {
                     self.player?.pause()
                     self.player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1000))
@@ -173,7 +185,12 @@ class NowPlayingViewController: UIViewController {
                 }
             }
         })
+        
+        
     }
+//    func playerConfiguration() {
+//
+//    }
     
     func setupUI() {
         NSLayoutConstraint.activate([

@@ -10,9 +10,12 @@ import UIKit
 class RecommendationsTableViewCell: UITableViewCell {
     
     static let identifire = "RecommendationsTableViewCell"
-    public var navigationController: UINavigationController?
+<<<<<<< HEAD:MusicPlayer/Views/HomveViewCells/TableViewCells/RecommendationsTableViewCell.swift
     var delegate: RecommendationsCellDelegate?
+=======
+    public var navigationController: UINavigationController?
     
+>>>>>>> main:MusicPlayer/Views/HomeViewCells/TableViewCells/RecommendationsTableViewCell.swift
     var recommendations: RecommendationsResponse? {
         didSet {
             collectionView.reloadData()
@@ -81,6 +84,7 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         }
         return cell
     }
+<<<<<<< HEAD:MusicPlayer/Views/HomveViewCells/TableViewCells/RecommendationsTableViewCell.swift
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.recommendationsCellDelegate(index: indexPath.row)
@@ -102,4 +106,6 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         }
         dataTask.resume()
     }
+=======
+>>>>>>> main:MusicPlayer/Views/HomeViewCells/TableViewCells/RecommendationsTableViewCell.swift
 }
