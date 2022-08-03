@@ -11,7 +11,6 @@ class RecommendationsTableViewCell: UITableViewCell {
     
     static let identifire = "RecommendationsTableViewCell"
     public var navigationController: UINavigationController?
-    var delegate: RecommendationsCellDelegate?
     
     var recommendations: RecommendationsResponse? {
         didSet {
@@ -81,11 +80,6 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         }
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        delegate?.recommendationsCellDelegate(index: indexPath.row)
-    }
-    
     
     func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
         let session = URLSession.shared

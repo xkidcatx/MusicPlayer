@@ -148,6 +148,10 @@ final class APICaller {
                 do {
                     let result = try JSONDecoder().decode(PlaylistDetailResponse.self, from: data)
                     completion(.success(result))
+<<<<<<< HEAD
+                    print(result)
+=======
+>>>>>>> f808ab31bd220b049eefbc96cf90e06b388a08a6
                 } catch {
                     completion(.failure(APIError.failedToGetData))
                 }

@@ -10,12 +10,8 @@ import UIKit
 class RecommendationsTableViewCell: UITableViewCell {
     
     static let identifire = "RecommendationsTableViewCell"
-<<<<<<< HEAD:MusicPlayer/Views/HomveViewCells/TableViewCells/RecommendationsTableViewCell.swift
-    var delegate: RecommendationsCellDelegate?
-=======
     public var navigationController: UINavigationController?
     
->>>>>>> main:MusicPlayer/Views/HomeViewCells/TableViewCells/RecommendationsTableViewCell.swift
     var recommendations: RecommendationsResponse? {
         didSet {
             collectionView.reloadData()
@@ -84,12 +80,15 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         }
         return cell
     }
-<<<<<<< HEAD:MusicPlayer/Views/HomveViewCells/TableViewCells/RecommendationsTableViewCell.swift
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+<<<<<<< HEAD
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         delegate?.recommendationsCellDelegate(index: indexPath.row)
     }
     
+    
+=======
+>>>>>>> f808ab31bd220b049eefbc96cf90e06b388a08a6
     func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
         let session = URLSession.shared
         let url = URL(string: urlString)
@@ -106,6 +105,4 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         }
         dataTask.resume()
     }
-=======
->>>>>>> main:MusicPlayer/Views/HomeViewCells/TableViewCells/RecommendationsTableViewCell.swift
 }
