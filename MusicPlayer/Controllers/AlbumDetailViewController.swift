@@ -49,11 +49,16 @@ class AlbumDetailViewController: UIViewController, StartAudiotrackDelegate {
     }
     
     func playAudiotrack(index: Int) {
-        let data = albumDetail?.tracks.items[index]
-        let nc = tabBarController?.viewControllers?[1] as! UINavigationController
-        let viewController = nc.topViewController as! NowPlayingViewController
-        viewController.set(data, albumDetail?.images[0].url)
-        tabBarController?.selectedIndex = 1
+        if let data = albumDetail, albumDetail?.tracks.items[index].preview_url != nil {
+            let nc = tabBarController?.viewControllers?[1] as! UINavigationController
+            let viewController = nc.topViewController as! NowPlayingViewController
+            viewController.set(data, index)
+            tabBarController?.selectedIndex = 1            
+        } else {
+            let alertController = UIAlertController(title: "Attention", message: "To listen to this song you need to have a premium subscription", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            self.present(alertController, animated: true)
+        }
     }
     
     private func createTableView() {
@@ -111,11 +116,9 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let minuts = Int(Double(track.duration_ms) / 1000.0 / 60)
         let seconds = Int(round(Double(track.duration_ms) / 1000)) - minuts * 60
         cell.timeLabel.text = seconds < 10 ? "\(minuts):0\(seconds)" : "\(minuts):\(seconds)"
-        APICaller.shared.fetchImage(from: albumDetail?.images[0].url ?? "") { data in
-            if let data = data {
-                cell.spinner.stopAnimating()
-                cell.imageview.image = UIImage(data: data)
-            }
+        APICaller.shared.fetchImage(from: albumDetail?.images[0].url ?? "") { image in
+            cell.spinner.stopAnimating()
+            cell.imageview.image = image
         }
         return cell
     }
@@ -128,11 +131,9 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: AlbumHeaderFooterView.identifire) as? AlbumHeaderFooterView else { return UITableViewHeaderFooterView() }
         header.title.text = albumDetail?.name
         header.subTitle.text = albumDetail?.artists[0].name
-        APICaller.shared.fetchImage(from: albumDetail?.images[0].url ?? "", completionHandler: { data in
-            if let data = data {
-                header.spinner.stopAnimating()
-                header.imageView.image = UIImage(data: data)
-            }
+        APICaller.shared.fetchImage(from: albumDetail?.images[0].url ?? "", completionHandler: { image in
+            header.spinner.stopAnimating()
+            header.imageView.image = image
         })
         return header
     }

@@ -11,7 +11,7 @@ class FeaturedPlaylistsTableViewCell: UITableViewCell {
     
     static let identifire = "FeaturedPlaylistsTableViewCell"
     public var navigationController: UINavigationController?
-
+    
     var featuredPlaylists: FeaturedPlaylistsResponse? {
         didSet {
             collectionView.reloadData()
@@ -41,7 +41,7 @@ class FeaturedPlaylistsTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
         collectionView.frame = contentView.bounds
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -72,12 +72,8 @@ extension FeaturedPlaylistsTableViewCell: UICollectionViewDelegateFlowLayout, UI
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistsCollectionViewCell.identifire, for: indexPath) as? FeaturedPlaylistsCollectionViewCell else { return UICollectionViewCell() }
         if let data = featuredPlaylists?.playlists {
             let playlist = data.items[indexPath.row]
-            APICaller.shared.fetchImage(from: playlist.images[0].url) { imageData in
-                if let image = imageData {
-                    cell.setupData(image: UIImage(data: image), title: "", subTitle: "")
-                } else {
-                    print("Error loading image");
-                }
+            APICaller.shared.fetchImage(from: playlist.images[0].url) { image in
+                cell.setupData(image: image, title: "", subTitle: "")
             }
         }
         return cell

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class APICaller {
     static let shared = APICaller()
@@ -156,21 +157,26 @@ final class APICaller {
         }
     }
     
-    func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
-        let session = URLSession.shared
-        guard let url = URL(string: urlString) else { return }
-        let dataTask = session.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print("Error fetching the image!")
-                completionHandler(nil)
-            } else {
-                DispatchQueue.main.async {
-                    completionHandler(data)
+    var imageCache = NSCache<NSString, UIImage>()
+    func fetchImage(from urlString: String, completionHandler: @escaping (_ image: UIImage?) -> ()) {
+        if let image = imageCache.object(forKey: urlString as NSString) {
+            completionHandler(image)
+        } else {
+            let session = URLSession.shared
+            guard let url = URL(string: urlString) else { return }
+            let dataTask = session.dataTask(with: url) { (data, response, error) in
+                if let data = data, error == nil, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.imageCache.setObject(image, forKey: urlString as NSString)
+                        completionHandler(image)
+                    }
+                } else {
+                    print("Error fetching the image with url : \(urlString)!")
+                    completionHandler(nil)
                 }
             }
+            dataTask.resume()
         }
-        
-        dataTask.resume()
     }
     
     //MARK: - Private

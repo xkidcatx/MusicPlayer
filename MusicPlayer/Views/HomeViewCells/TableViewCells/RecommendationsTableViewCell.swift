@@ -70,12 +70,8 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendationsCollectionViewCell.identifire, for: indexPath) as? RecommendationsCollectionViewCell else { return UICollectionViewCell() }
         if let data = recommendations {
             let track = data.tracks[indexPath.row]
-            APICaller.shared.fetchImage(from: track.album?.images[0].url ?? "") { imageData in
-                if let image = imageData {
-                    cell.setupData(image: UIImage(data: image), title: track.name, subTitle: track.artists[0].name)
-                } else {
-                    print("Error loading image");
-                }
+            APICaller.shared.fetchImage(from: track.album?.images[0].url ?? "") { image in
+                cell.setupData(image: image, title: track.name, subTitle: track.artists[0].name)
             }
         }
         return cell
