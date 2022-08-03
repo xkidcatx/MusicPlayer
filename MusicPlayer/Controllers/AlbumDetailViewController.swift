@@ -7,7 +7,11 @@
 
 import UIKit
 
-class AlbumDetailViewController: UIViewController {
+protocol StartAudiotrackDelegate {
+    func playAudiotrack(index: Int)
+}
+
+class AlbumDetailViewController: UIViewController, StartAudiotrackDelegate {
     
     private let album: Album
     private var albumDetail: AlbumDetailResponse?
@@ -44,7 +48,7 @@ class AlbumDetailViewController: UIViewController {
         }
     }
     
-    private func recommendationsCellDelegate(index: Int) {
+    func playAudiotrack(index: Int) {
         let vc = NowPlayingViewController()
         let data = albumDetail?.tracks.items[index]
         vc.set(data)
@@ -137,6 +141,6 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        recommendationsCellDelegate(index: indexPath.row)
+        playAudiotrack(index: indexPath.row)
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlaylistDetailViewController: UIViewController {
+class PlaylistDetailViewController: UIViewController, StartAudiotrackDelegate {
     
     private let playlist: Playlist
     private var playlistDetail: PlaylistDetailResponse?
@@ -45,11 +45,17 @@ class PlaylistDetailViewController: UIViewController {
         }
     }
     
+    func playAudiotrack(index: Int) {
+        let vc = NowPlayingViewController()
+        let data = playlistDetail?.tracks.items[index].track
+        vc.set(data)
+        tabBarController?.selectedIndex = 1
+    }
+    
     private func createTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.identifire)
         tableView.register(AlbumHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: AlbumHeaderFooterView.identifire)
-        tableView.allowsSelection = false
         tableView.backgroundColor = .systemBackground
         tableView.layoutMargins = .zero
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -131,5 +137,7 @@ extension PlaylistDetailViewController: UITableViewDelegate, UITableViewDataSour
         return 275
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        playAudiotrack(index: indexPath.row)
+    }
 }

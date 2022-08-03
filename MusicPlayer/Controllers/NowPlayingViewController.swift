@@ -141,7 +141,7 @@ class NowPlayingViewController: UIViewController {
         view.addSubview(forwardButton)
         setupUI()
 //        playerConfiguration()
-        set()
+        //set()
     }
     
     // Декларируем аудиоплеер в общей области видимости
@@ -149,6 +149,14 @@ class NowPlayingViewController: UIViewController {
     
     func set(_ data: AudioTrack? = nil) {
         track = data
+        if let imageUrl = track?.album?.images[0].url {
+            APICaller.shared.fetchImage(from: imageUrl) { data in
+                if let data = data, let image = UIImage(data: data) {
+                    self.imageSong.image = image
+                }
+            }
+        }
+        titleSong.text = "sd"
         //создаем URL
         if let url = URL(string: track?.preview_url ?? "") {
             do {
