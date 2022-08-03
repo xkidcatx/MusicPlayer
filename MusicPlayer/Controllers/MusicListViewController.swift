@@ -14,9 +14,9 @@ class MusicListViewController: UITableViewController {
         
         //Регистрируем UITableViewCell для его использования при создании новых ячеек в MusicListViewController
         tableView.register(MusicListCell.self, forCellReuseIdentifier: "MusicListCell")
+
         
-        
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "LightColour")
     }
     
     // устанавливаем кол-во строк в таблице

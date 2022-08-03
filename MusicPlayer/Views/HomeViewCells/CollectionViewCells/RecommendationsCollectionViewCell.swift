@@ -21,9 +21,9 @@ class RecommendationsCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func setupUI() {
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = UIColor(named: "LightColour")
+        self.backgroundColor = UIColor(named: "LightColour")
         contentView.layer.cornerRadius = 10
-        
         contentView.addSubview(imageView)
         contentView.addSubview(title)
         contentView.addSubview(subtitle)

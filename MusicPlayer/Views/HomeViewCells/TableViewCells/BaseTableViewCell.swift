@@ -42,6 +42,7 @@ class BaseTableViewCell: UITableViewCell {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        UIColor(named: "LightColour")
     }
 }
 
