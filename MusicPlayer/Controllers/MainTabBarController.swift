@@ -75,7 +75,6 @@ class MainTabBarController: UITabBarController {
         musicListVC.title = "Music List"
         profileVC.title = "Profile"
         
-        
         homeVC.navigationItem.largeTitleDisplayMode = .always
         nowPlayingVC.navigationItem.largeTitleDisplayMode = .always
         musicListVC.navigationItem.largeTitleDisplayMode = .always

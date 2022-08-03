@@ -26,6 +26,18 @@ class ProfileViewController: UIViewController {
         return $0
     }(UITableView())
     
+     lazy var signOutButton: UIButton = {
+        $0.backgroundColor = .red
+        $0.tintColor = .white
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        $0.setTitle("Sign Out", for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.layer.cornerRadius = 15
+        $0.addTarget(self, action: #selector(signOutButtonTapped), for: .touchUpInside)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIButton(type: .system))
+    
     private var models = [String]()
 
     override func viewDidLoad() {
@@ -94,7 +106,30 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         view.addSubview(tableView)
         view.addSubview(imageView)
+        view.addSubview(signOutButton)
         tableView.tableHeaderView = headerView
+    }
+    
+    @objc private func signOutButtonTapped() {
+        let alert = UIAlertController(title: "Sign Out", message: "Are you sure?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
+            AuthManager.shared.signOut { [weak self] signedOut in
+                if signedOut {
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popToRootViewController(animated: false)
+                        let navVC = UINavigationController(rootViewController: WelcomeViewController())
+                        navVC.navigationBar.prefersLargeTitles = true
+                        navVC.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
+                        navVC.modalPresentationStyle = .fullScreen
+                        self?.present(navVC, animated: true, completion: {
+                            self?.navigationController?.popToRootViewController(animated: false)
+                        })
+                    }
+                }
+            }
+        }))
+        present(alert, animated: true)
     }
 }
 
@@ -130,7 +165,7 @@ extension ProfileViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -250)
         ])
         
         NSLayoutConstraint.activate([
@@ -141,8 +176,17 @@ extension ProfileViewController {
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            imageView.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.8),
-            imageView.widthAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.8)
+            imageView.heightAnchor.constraint(equalTo: headerView.heightAnchor),
+            imageView.widthAnchor.constraint(equalTo: headerView.widthAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            signOutButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 5),
+            signOutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            signOutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            signOutButton.heightAnchor.constraint(equalToConstant: 50)
+            
+        ])
+        
     }
 }

@@ -13,6 +13,8 @@ class WelcomeViewController: UIViewController {
         $0.backgroundColor = .white
         $0.setTitle("Sign in with Spotify", for: .normal)
         $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        $0.layer.cornerRadius = 15
         $0.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
