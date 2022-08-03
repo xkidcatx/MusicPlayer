@@ -65,7 +65,7 @@ class ProfileViewController: UIViewController {
     private func updateUI(with model: UserProfile) {
         tableView.isHidden = false
         //configure table models
-        models.append("Full Name: \(model.display_name)")
+        models.append("Name: \(model.display_name)")
         models.append("Email Address: \(model.email)")
         models.append("User ID: \(model.id)")
         models.append("Plan: \(model.product)")
