@@ -11,7 +11,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "test")
+        imageView.image = nil
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true

@@ -10,9 +10,6 @@ import UIKit
 class NewReleasesTableViewCell: UITableViewCell {
     
     static let identifire = "NewReleasesTableViewCell"
-    private let imageCache = NSCache<NSString, UIImage>()
-    private let albumCache = NSCache<NSString, NSString>()
-    private let artistCache = NSCache<NSString, NSString>()
     
     public var navigationController: UINavigationController?
     
