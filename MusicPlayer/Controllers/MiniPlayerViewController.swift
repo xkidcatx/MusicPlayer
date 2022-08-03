@@ -77,6 +77,7 @@ class MiniPlayerViewController: UIViewController {
         view.addGestureRecognizer(tap)
         view.isUserInteractionEnabled = true
         
+        
         // add buttons
         view.addSubview(pauseButton)
         view.addSubview(backButton)

@@ -82,9 +82,10 @@ extension RecommendationsTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         delegate?.recommendationsCellDelegate(index: indexPath.row)
     }
+    
     
     func fetchImage(from urlString: String, completionHandler: @escaping (_ data: Data?) -> ()) {
         let session = URLSession.shared

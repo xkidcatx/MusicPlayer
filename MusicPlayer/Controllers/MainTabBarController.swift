@@ -9,7 +9,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    private let miniPlayer: MiniPlayerViewController = {
+    let miniPlayer: MiniPlayerViewController = {
         $0.view.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(MiniPlayerViewController())
@@ -101,10 +101,11 @@ class MainTabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = UIColor(named: "MiddleColour")
         tabBar.tintColor = UIColor(named: "LightColour")
         
+        
         if let childIndex = viewControllers?.firstIndex(of: miniPlayer) {
             viewControllers?.remove(at: childIndex)
         }
-        
+
     }
     
     func addChildView() {

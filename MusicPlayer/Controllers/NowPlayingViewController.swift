@@ -10,6 +10,7 @@ import AVFoundation
 
 class NowPlayingViewController: UIViewController {
     
+    
     private var playerStop = true
     private var track: AudioTrack?
     private let imageSong: UIImageView = {
@@ -115,6 +116,16 @@ class NowPlayingViewController: UIViewController {
     
     @objc func forwardButtonAction(sender: UIButton!) {
         // тут надо добавить переход на трек вперед
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let myTabBar = tabBarController as? MainTabBarController
+        myTabBar?.miniPlayer.view.isHidden = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        let myTabBar = tabBarController as? MainTabBarController
+        myTabBar?.miniPlayer.view.isHidden = false
     }
     
     override func viewDidLoad() {
