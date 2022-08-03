@@ -32,7 +32,6 @@ class AlbumDetailViewController: UIViewController {
         APICaller.shared.getAlbumDetail(with: album) { result in
             switch result {
             case .success(let model):
-                print(model)
                 self.albumDetail = model
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -45,11 +44,17 @@ class AlbumDetailViewController: UIViewController {
         }
     }
     
+    private func recommendationsCellDelegate(index: Int) {
+        let vc = NowPlayingViewController()
+        let data = albumDetail?.tracks.items[index]
+        vc.set(data)
+        tabBarController?.selectedIndex = 1
+    }
+    
     private func createTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.identifire)
         tableView.register(AlbumHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: AlbumHeaderFooterView.identifire)
-        tableView.allowsSelection = false
         tableView.backgroundColor = .systemBackground
         tableView.layoutMargins = .zero
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -129,5 +134,9 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 275
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        recommendationsCellDelegate(index: indexPath.row)
     }
 }
