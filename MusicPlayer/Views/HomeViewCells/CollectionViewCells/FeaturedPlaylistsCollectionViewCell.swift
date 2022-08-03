@@ -21,9 +21,8 @@ class FeaturedPlaylistsCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func setupUI() {
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = UIColor(named: "LightColour")
         contentView.layer.cornerRadius = 10
-        
         contentView.addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),

@@ -16,6 +16,9 @@ class ProfileViewController: UIViewController {
     
     private let imageView: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.contentMode = .scaleAspectFit
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 200 // = $0.frame.height/2
         return $0
     }(UIImageView())
     
@@ -64,10 +67,11 @@ class ProfileViewController: UIViewController {
    
     private func updateUI(with model: UserProfile) {
         tableView.isHidden = false
+        tableView.backgroundColor = UIColor(named: "LightColour")
         //configure table models
-        models.append("Full Name: \(model.display_name)")
-        models.append("Email Address: \(model.email)")
-        models.append("User ID: \(model.id)")
+        models.append("Name: \(model.display_name)")
+        models.append("Email: \(model.email)")
+       // models.append("User ID: \(model.id)")
         models.append("Plan: \(model.product)")
         fetchImage(with: model.images.first?.url)
         tableView.reloadData()
@@ -102,7 +106,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "LightColour")
         title = "Profile"
         view.addSubview(tableView)
         view.addSubview(imageView)
@@ -144,10 +148,12 @@ extension ProfileViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = models[indexPath.row]
         cell.selectionStyle = .none
+        cell.backgroundColor = UIColor(named: "LightColour")
+        cell.textLabel?.textAlignment = .center
+        
         return cell
     }
-    
-    
+
 }
 
 //MARK: - UITableViewDelegate
@@ -190,3 +196,4 @@ extension ProfileViewController {
         
     }
 }
+

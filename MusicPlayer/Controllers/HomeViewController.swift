@@ -28,9 +28,10 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor(named: "LightColour")
         createGradient()
         createTable()
+        navigationController?.navigationBar.tintColor = UIColor(named: "DarkColour")
+        tableView.backgroundColor = UIColor(named: "LightColour")
         fetchNewReleasesData()
         fetchRecommendationsData()
         fetchFeaturedPlaylistsData()
@@ -119,9 +120,8 @@ class HomeViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.allowsSelection = false
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = UIColor(named: "LightColour")
         tableView.separatorStyle = .none
         tableView.layoutMargins = .zero
         
@@ -153,6 +153,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: NewReleasesTableViewCell.identifire, for: indexPath) as? NewReleasesTableViewCell else { return UITableViewCell() }
             if let data = newReleases {
+                cell.backgroundColor = UIColor(named: "LightColour")
                 cell.configure(with: data)
                 cell.navigationController = self.navigationController
             }
@@ -160,6 +161,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FeaturedPlaylistsTableViewCell.identifire, for: indexPath) as? FeaturedPlaylistsTableViewCell else { return UITableViewCell() }
             if let data = featuredPlaylists {
+                cell.backgroundColor = UIColor(named: "LightColour")
                 cell.configure(with: data)
                 cell.navigationController = self.navigationController
             }
@@ -167,6 +169,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendationsTableViewCell.identifire, for: indexPath) as? RecommendationsTableViewCell else { return UITableViewCell() }
             if let data = recommendations {
+                cell.backgroundColor = UIColor(named: "LightColour")
                 cell.configure(with: data)
                 cell.navigationController = self.navigationController
             }

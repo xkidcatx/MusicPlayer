@@ -32,6 +32,7 @@ class RecommendationsTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor(named: "LightColour")
     }
     
     override func layoutSubviews() {

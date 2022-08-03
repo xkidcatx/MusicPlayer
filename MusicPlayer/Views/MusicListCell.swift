@@ -32,6 +32,7 @@ class MusicListCell: UITableViewCell {
         addSubview(musicPosterUIImageView)
         configureLayout()
         configureView()
+        self.backgroundColor = UIColor(named: "LightColour")
     }
     
     //MARK: - Этот инициализатор будет вызван, если MusicListCell будет вызван из storyboard

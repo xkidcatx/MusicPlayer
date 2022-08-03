@@ -70,6 +70,7 @@ class AlbumDetailViewController: UIViewController {
     
     private func setupUI() {
         view.addSubview(tableView)
+        tableView.backgroundColor = UIColor(named: "LightColour")
     }
     
     private func setup() {

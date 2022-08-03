@@ -47,8 +47,9 @@ class BaseCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = UIColor(named: "LightColour")
         contentView.layer.cornerRadius = 10
+        self.backgroundColor = UIColor(named: "LightColour")
     }
     
     func setupData(image: UIImage?, title: String, subTitle: String) {
