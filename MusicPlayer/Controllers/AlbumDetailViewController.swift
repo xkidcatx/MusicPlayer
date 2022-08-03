@@ -49,9 +49,10 @@ class AlbumDetailViewController: UIViewController, StartAudiotrackDelegate {
     }
     
     func playAudiotrack(index: Int) {
-        let vc = NowPlayingViewController()
         let data = albumDetail?.tracks.items[index]
-        vc.set(data)
+        let nc = tabBarController?.viewControllers?[1] as! UINavigationController
+        let viewController = nc.topViewController as! NowPlayingViewController
+        viewController.set(data, albumDetail?.images[0].url)
         tabBarController?.selectedIndex = 1
     }
     
