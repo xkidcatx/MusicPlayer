@@ -10,7 +10,6 @@ import AVFoundation
 
 class NowPlayingViewController: UIViewController {
     
-    
     private var playerStop = true
     private var track: AudioTrack?
     private let imageSong: UIImageView = {
@@ -27,7 +26,7 @@ class NowPlayingViewController: UIViewController {
         let titleSong = UILabel()
         titleSong.text = "Lightwire - City of Dreams"
         titleSong.font = .systemFont(ofSize: 25, weight: .bold)
-        titleSong.textColor = .darkGray
+        titleSong.textColor = UIColor(named: "BrownColour")
         titleSong.numberOfLines = 0
         titleSong.textAlignment = .center
         titleSong.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +36,7 @@ class NowPlayingViewController: UIViewController {
     private let currentTimeSong: UILabel = {
         let currentTimeSong = UILabel()
         currentTimeSong.text = "00:00"
+        currentTimeSong.textColor = UIColor(named: "MiddleColour")
         currentTimeSong.font = .systemFont(ofSize: 15, weight: .medium)
         currentTimeSong.translatesAutoresizingMaskIntoConstraints = false
         return currentTimeSong
@@ -45,6 +45,7 @@ class NowPlayingViewController: UIViewController {
     private let durationSong: UILabel = {
         let durationSong = UILabel()
         durationSong.text = "00:00"
+        durationSong.textColor = UIColor(named: "MiddleColour")
         durationSong.font = .systemFont(ofSize: 15, weight: .medium)
         durationSong.translatesAutoresizingMaskIntoConstraints = false
         return durationSong
@@ -55,6 +56,7 @@ class NowPlayingViewController: UIViewController {
         // Устанавливаем получения события valueChanged только тогда, когда пользователь перестает перемещать ползунок
         progressSongView.isContinuous = false
         progressSongView.translatesAutoresizingMaskIntoConstraints = false
+        progressSongView.tintColor = UIColor(named: "BrownColour")
         // добавляем экшн слайдеру
         progressSongView.addTarget(self, action: #selector(progressSongViewAction), for: .valueChanged)
         return progressSongView
@@ -69,7 +71,7 @@ class NowPlayingViewController: UIViewController {
         let backwardButton = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .medium, scale: .default)
         backwardButton.setImage(UIImage(systemName: "backward.end", withConfiguration: config), for: .normal)
-        backwardButton.tintColor = .black
+        backwardButton.tintColor = UIColor(named: "DarkColour")
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
         backwardButton.addTarget(self, action: #selector(backwardButtonAction), for: .touchUpInside)
         return backwardButton
@@ -83,7 +85,7 @@ class NowPlayingViewController: UIViewController {
         let playButton = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 42, weight: .medium, scale: .default)
         playButton.setImage(UIImage(systemName: "play.circle", withConfiguration: config), for: .normal)
-        playButton.tintColor = .black
+        playButton.tintColor = UIColor(named: "DarkColour")
         playButton.translatesAutoresizingMaskIntoConstraints = false
         // добавляем экшн кнопке
         playButton.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
@@ -108,7 +110,7 @@ class NowPlayingViewController: UIViewController {
         let forwardButton = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .medium, scale: .default)
         forwardButton.setImage(UIImage(systemName: "forward.end", withConfiguration: config), for: .normal)
-        forwardButton.tintColor = .black
+        forwardButton.tintColor = UIColor(named: "DarkColour")
         forwardButton.translatesAutoresizingMaskIntoConstraints = false
         forwardButton.addTarget(self, action: #selector(forwardButtonAction), for: .touchUpInside)
         return forwardButton
@@ -158,15 +160,17 @@ class NowPlayingViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+        
+//        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
+//            do {
+//                player = AVPlayer(url: url)
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+        
         //запускаем трек
         player?.play()
-//                        if let url = Bundle.main.url(forResource: "Lightwire - City of Dreams", withExtension: "mp3") {
-//                            do {
-//                                player =  AVPlayer(url: url)
-//                            } catch {
-//                                print(error.localizedDescription)
-//                            }
-//                        }
         
         if let durationSongSeconds = player?.currentItem?.asset.duration.seconds {
             // отображаем длительность песни
@@ -183,21 +187,21 @@ class NowPlayingViewController: UIViewController {
                 self.durationSong.text = String(format: "-%02d:%02d", Int(durationSongSeconds - time.seconds) / 60, Int(durationSongSeconds - time.seconds) % 60)
             }
             self.progressSongView.value = Float(time.seconds)
-            
+                 
             // обнуляем время, слайдер когда песня закончилась
             if let duration = self.player?.currentItem?.asset.duration {
-                //                print(Int(duration.seconds))
-                //                print(Int(time.seconds))
+                // print(Int(duration.seconds))
+                // print(Int(time.seconds))
                 if time == duration {
                     self.player?.pause()
                     self.player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1000))
                     self.currentTimeSong.text = "00:00"
                     self.progressSongView.value = 0
+                    let config = UIImage.SymbolConfiguration(pointSize: 42, weight: .medium, scale: .default)
+                    self.playButton.setImage(UIImage(systemName: "play.circle", withConfiguration: config), for: .normal)
                 }
             }
         })
-        
-        
     }
 //    func playerConfiguration() {
 //
@@ -234,6 +238,5 @@ class NowPlayingViewController: UIViewController {
             forwardButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 30),
         ])
     }
-    
     
 }
