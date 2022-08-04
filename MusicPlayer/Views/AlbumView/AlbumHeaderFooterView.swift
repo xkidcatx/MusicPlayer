@@ -53,7 +53,11 @@ class AlbumHeaderFooterView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        spinner.startAnimating()
+        if imageView.image == nil {
+            spinner.startAnimating()
+        } else {
+            spinner.stopAnimating()
+        }
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),

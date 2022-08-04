@@ -65,7 +65,11 @@ class AlbumTableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        spinner.startAnimating()
+        if imageview.image == nil {
+            spinner.startAnimating()
+        } else {
+            spinner.stopAnimating()
+        }
     }
     
     private func setupUI() {

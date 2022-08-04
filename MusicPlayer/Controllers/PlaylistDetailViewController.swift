@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlaylistDetailViewController: UIViewController {
+class PlaylistDetailViewController: UIViewController, StartAudiotrackDelegate {
     
     private let playlist: Playlist
     private var playlistDetail: PlaylistDetailResponse?
@@ -32,7 +32,6 @@ class PlaylistDetailViewController: UIViewController {
         APICaller.shared.getPlaylistDetail(with: playlist) { result in
             switch result {
             case .success(let model):
-                print(model)
                 self.playlistDetail = model
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -45,11 +44,24 @@ class PlaylistDetailViewController: UIViewController {
         }
     }
     
+    func playAudiotrack(index: Int) {
+        if let data = playlistDetail, playlistDetail?.tracks.items[index].track.preview_url != nil {
+            let nc = tabBarController?.viewControllers?[1] as! UINavigationController
+            let viewController = nc.topViewController as! NowPlayingViewController
+            viewController.set(data, index)
+            tabBarController?.selectedIndex = 1
+        } else {
+            let alertController = UIAlertController(title: "Attention", message: "To listen to this song you need to have a premium subscription", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            self.present(alertController, animated: true)
+        }
+
+    }
+    
     private func createTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.identifire)
         tableView.register(AlbumHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: AlbumHeaderFooterView.identifire)
-        tableView.allowsSelection = false
         tableView.backgroundColor = .systemBackground
         tableView.layoutMargins = .zero
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,11 +113,9 @@ extension PlaylistDetailViewController: UITableViewDelegate, UITableViewDataSour
         let minuts = Int(Double(playlist.track.duration_ms) / 1000.0 / 60)
         let seconds = Int(round(Double(playlist.track.duration_ms) / 1000)) - minuts * 60
         cell.timeLabel.text = seconds < 10 ? "\(minuts):0\(seconds)" : "\(minuts):\(seconds)"
-        APICaller.shared.fetchImage(from: playlistDetail?.tracks.items[indexPath.row].track.album?.images[0].url ?? "") { data in
-            if let data = data {
-                cell.spinner.stopAnimating()
-                cell.imageview.image = UIImage(data: data)
-            }
+        APICaller.shared.fetchImage(from: playlistDetail?.tracks.items[indexPath.row].track.album?.images[0].url ?? "") { image in
+            cell.spinner.stopAnimating()
+            cell.imageview.image = image
         }
         return cell
     }
@@ -118,11 +128,9 @@ extension PlaylistDetailViewController: UITableViewDelegate, UITableViewDataSour
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: AlbumHeaderFooterView.identifire) as? AlbumHeaderFooterView else { return UITableViewHeaderFooterView() }
         header.title.text = playlistDetail?.name
         header.subTitle.text = playlistDetail?.description
-        APICaller.shared.fetchImage(from: playlistDetail?.images[0].url ?? "", completionHandler: { data in
-            if let data = data {
-                header.spinner.stopAnimating()
-                header.imageView.image = UIImage(data: data)
-            }
+        APICaller.shared.fetchImage(from: playlistDetail?.images[0].url ?? "", completionHandler: { image in
+            header.spinner.stopAnimating()
+            header.imageView.image = image
         })
         return header
     }
@@ -131,5 +139,7 @@ extension PlaylistDetailViewController: UITableViewDelegate, UITableViewDataSour
         return 275
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        playAudiotrack(index: indexPath.row)
+    }
 }

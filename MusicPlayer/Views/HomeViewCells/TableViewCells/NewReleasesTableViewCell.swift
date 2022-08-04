@@ -10,9 +10,6 @@ import UIKit
 class NewReleasesTableViewCell: UITableViewCell {
     
     static let identifire = "NewReleasesTableViewCell"
-    private let imageCache = NSCache<NSString, UIImage>()
-    private let albumCache = NSCache<NSString, NSString>()
-    private let artistCache = NSCache<NSString, NSString>()
     
     public var navigationController: UINavigationController?
     
@@ -75,22 +72,8 @@ extension NewReleasesTableViewCell: UICollectionViewDelegateFlowLayout, UICollec
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReleasesCollectionViewCell.identifire, for: indexPath) as? NewReleasesCollectionViewCell else { return UICollectionViewCell() }
         if let data = newReleases {
             let album = data.albums.items[indexPath.row]
-            if let image = imageCache.object(forKey: album.images[0].url as NSString),
-               let albumName = albumCache.object(forKey: album.name as NSString),
-               let artistName = artistCache.object(forKey: album.artists[0].name as NSString) {
-                cell.setupData(image: image, title: String(albumName), subTitle: String(artistName))
-            } else {
-                APICaller.shared.fetchImage(from: album.images[0].url) { imageData in
-                    if let image = imageData {
-                        cell.setupData(image: UIImage(data: image), title: album.name, subTitle: album.artists[0].name)
-                        
-                        self.imageCache.setObject(UIImage(data: image)!, forKey: album.images[0].url as NSString)
-                        self.albumCache.setObject(album.name as NSString, forKey: album.name as NSString)
-                        self.artistCache.setObject(album.artists[0].name as NSString, forKey: album.artists[0].name as NSString)
-                    } else {
-                        print("Error loading image");
-                    }
-                }
+            APICaller.shared.fetchImage(from: album.images[0].url) { image in
+                cell.setupData(image: image, title: album.name, subTitle: album.artists[0].name)
             }
         }
         return cell
