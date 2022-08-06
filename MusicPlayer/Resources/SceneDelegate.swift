@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  MusicPlayer
 //
-//  Created by Gleb on 05.07.2022.
+//  Created by Eugene Kotovich on 07.07.2022.
 //
 
 import UIKit

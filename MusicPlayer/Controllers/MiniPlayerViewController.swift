@@ -88,6 +88,7 @@ class MiniPlayerViewController: UIViewController {
         setupconstraints()
     }
     
+    
     @objc func tapDetected() {
         guard let delegate = delegate else { return }
         delegate.presentPlayerView()

@@ -2,7 +2,7 @@
 //  NowPlayingViewController.swift
 //  MusicPlayer
 //
-//  Created by Gleb Glushok on 06.07.2022.
+//  Created by Eugene Kotovich on 07.07.2022.
 //
 
 import UIKit
@@ -24,7 +24,7 @@ class NowPlayingViewController: UIViewController {
         }
     }
     private var track: AudioTrack?
-    private let imageSong: UIImageView = {
+    let imageSong: UIImageView = {
         let imageSong = UIImageView()
         imageSong.image = UIImage(named: "Lightwire - City of Dreams")
         imageSong.contentMode = .scaleToFill
@@ -34,7 +34,7 @@ class NowPlayingViewController: UIViewController {
         return imageSong
     }()
     
-    private let titleSong: UILabel = {
+    let titleSong: UILabel = {
         let titleSong = UILabel()
         titleSong.text = "Lightwire - City of Dreams"
         titleSong.font = .systemFont(ofSize: 25, weight: .bold)
@@ -45,7 +45,7 @@ class NowPlayingViewController: UIViewController {
         return titleSong
     }()
     
-    private let currentTimeSong: UILabel = {
+    let currentTimeSong: UILabel = {
         let currentTimeSong = UILabel()
         currentTimeSong.text = "00:00"
         currentTimeSong.font = .systemFont(ofSize: 15, weight: .medium)
@@ -53,7 +53,7 @@ class NowPlayingViewController: UIViewController {
         return currentTimeSong
     }()
     
-    private let durationSong: UILabel = {
+    let durationSong: UILabel = {
         let durationSong = UILabel()
         durationSong.text = "00:00"
         durationSong.font = .systemFont(ofSize: 15, weight: .medium)
@@ -63,6 +63,7 @@ class NowPlayingViewController: UIViewController {
     
     lazy var progressSongView: UISlider = {
         let progressSongView = UISlider()
+        progressSongView.tintColor = UIColor(named: "lightBrown")
         // Устанавливаем получения события valueChanged только тогда, когда пользователь перестает перемещать ползунок
         progressSongView.isContinuous = false
         progressSongView.translatesAutoresizingMaskIntoConstraints = false
@@ -165,11 +166,7 @@ class NowPlayingViewController: UIViewController {
         }
         
         if let url = URL(string: track?.preview_url ?? "") {
-            do {
                 player =  AVPlayer(url: url)
-            } catch {
-                print(error.localizedDescription)
-            }
         }
         
         player?.play()
@@ -211,11 +208,8 @@ class NowPlayingViewController: UIViewController {
         }
 
         if let url = URL(string: track?.preview_url ?? "") {
-            do {
+          
                 player =  AVPlayer(url: url)
-            } catch {
-                print(error.localizedDescription)
-            }
         }
         
         player?.play()

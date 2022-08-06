@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFit
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 200 // = $0.frame.height/2
+        //$0.layer.cornerRadius = 200 // = $0.frame.height/2
         return $0
     }(UIImageView())
     

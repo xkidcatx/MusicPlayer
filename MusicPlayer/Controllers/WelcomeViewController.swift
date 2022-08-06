@@ -9,10 +9,17 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
+    private let logoImageView: UIImageView = {
+        $0.image = UIImage(named: "Watermellon Music App Icon")
+        $0.contentMode = .scaleAspectFit
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView())
+    
     lazy var signInButton: UIButton = {
-        $0.backgroundColor = .white
+        $0.backgroundColor = UIColor(named: "lightBrown")
         $0.setTitle("Sign in with Spotify", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
+        $0.setTitleColor(.white, for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 20)
         $0.layer.cornerRadius = 15
         $0.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
@@ -24,7 +31,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Watermellon"
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = UIColor(named: "LightColour")
         setupViews()
         setConstraints()
     }
@@ -36,6 +43,7 @@ class WelcomeViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(signInButton)
+        view.addSubview(logoImageView)
     }
     
     @objc func didTapSignIn() {
@@ -68,6 +76,12 @@ extension WelcomeViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
+            
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            logoImageView.heightAnchor.constraint(equalToConstant: 200),
+            logoImageView.widthAnchor.constraint(equalToConstant: 200),
+            
             signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             signInButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
