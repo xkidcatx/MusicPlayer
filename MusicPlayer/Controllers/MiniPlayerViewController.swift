@@ -19,10 +19,24 @@ class MiniPlayerViewController: UIViewController {
         let button = UIButton(type: .system)
         button.tintColor = UIColor(named: "LightColour")
         let config = UIImage.SymbolConfiguration( pointSize: 32, weight: .medium, scale: .default)
-        button.setImage(UIImage(systemName: "pause.fill", withConfiguration: config), for: .normal)
+        button.setImage(UIImage(systemName: "play.fill", withConfiguration: config), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(pauseButtonAction), for: .touchUpInside)
         return button
     } ()
+    @objc func pauseButtonAction() {
+        let config = UIImage.SymbolConfiguration( pointSize: 32, weight: .medium, scale: .default)
+        if NowPlayingViewController.isPlaing {
+            NowPlayingViewController.player?.pause()
+            pauseButton.setImage(UIImage(systemName: "play.fill", withConfiguration: config), for: .normal)
+            NowPlayingViewController.isPlaing = !NowPlayingViewController.isPlaing
+        } else {
+            NowPlayingViewController.player?.play()
+            pauseButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: config), for: .normal)
+            NowPlayingViewController.isPlaing = !NowPlayingViewController.isPlaing
+        }
+    }
+    
     let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = UIColor(named: "LightColour")
@@ -41,7 +55,7 @@ class MiniPlayerViewController: UIViewController {
     } ()
     let imageAlbum: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Lightwire - City of Dreams")
+        image.image = UIImage(named: "Watermellon Music App Icon")
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 23
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -49,14 +63,14 @@ class MiniPlayerViewController: UIViewController {
     } ()
     let artistLable: UILabel = {
         let label = UILabel()
-        label.text = "Artist Name"
+        label.text = "Watermellon App "
         label.textColor = UIColor(named: "LightColour")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     let trackLable: UILabel = {
         let label = UILabel()
-        label.text = "Track"
+        label.text = "Music Player"
         label.textColor = UIColor(named: "LightColour")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
