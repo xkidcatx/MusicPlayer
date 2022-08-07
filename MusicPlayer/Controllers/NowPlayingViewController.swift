@@ -35,7 +35,7 @@ class NowPlayingViewController: UIViewController {
     private var track: AudioTrack?
     private let imageSong: UIImageView = {
         let imageSong = UIImageView()
-        imageSong.image = UIImage(named: "Lightwire - City of Dreams")
+        imageSong.image = UIImage(named: "vinyl")
         imageSong.contentMode = .scaleToFill
         imageSong.layer.cornerRadius = 10
         imageSong.layer.masksToBounds = true
@@ -45,7 +45,7 @@ class NowPlayingViewController: UIViewController {
     
     private let titleSong: UILabel = {
         let titleSong = UILabel()
-        titleSong.text = "Lightwire - City of Dreams"
+        titleSong.text = "No track is playing"
         titleSong.font = .systemFont(ofSize: 25, weight: .bold)
         titleSong.textColor = .darkGray
         titleSong.numberOfLines = 0
@@ -72,6 +72,7 @@ class NowPlayingViewController: UIViewController {
     
     lazy var progressSongView: UISlider = {
         let progressSongView = UISlider()
+        progressSongView.tintColor = UIColor(named: "lightBrown")
         // Устанавливаем получения события valueChanged только тогда, когда пользователь перестает перемещать ползунок
         progressSongView.isContinuous = false
         progressSongView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,10 +95,6 @@ class NowPlayingViewController: UIViewController {
         backwardButton.addTarget(self, action: #selector(backwardButtonAction), for: .touchUpInside)
         return backwardButton
     }()
-    
-    @objc func backwardButtonAction(sender: UIButton!) {
-        // тут надо добавить переход на трек назад
-    }
     
     lazy var playButton: UIButton = {
         let playButton = UIButton()
@@ -132,7 +129,12 @@ class NowPlayingViewController: UIViewController {
     @objc func forwardButtonAction(sender: UIButton!) {
         
     }
-//MARK: - Will appear method
+    
+    @objc func backwardButtonAction(sender: UIButton!) {
+        // тут надо добавить переход на трек назад
+    }
+    
+    //MARK: - Will appear method
     override func viewWillAppear(_ animated: Bool) {
         let myTabBar = tabBarController as? MainTabBarController
         myTabBar?.miniPlayer.view.isHidden = true
@@ -163,7 +165,7 @@ class NowPlayingViewController: UIViewController {
     }
     
     // Декларируем аудиоплеер в общей области видимости
-   static var player: AVPlayer?
+    static var player: AVPlayer?
     
     public func set(_ data: PlaylistDetailResponse, _ index: Int) {
         track = data.tracks.items[index].track
@@ -179,11 +181,7 @@ class NowPlayingViewController: UIViewController {
         }
         
         if let url = URL(string: track?.preview_url ?? "") {
-            do {
-                NowPlayingViewController.player =  AVPlayer(url: url)
-            } catch {
-                print(error.localizedDescription)
-            }
+            NowPlayingViewController.player =  AVPlayer(url: url)
         }
         
         NowPlayingViewController.player?.play()
@@ -225,13 +223,9 @@ class NowPlayingViewController: UIViewController {
         APICaller.shared.fetchImage(from: data.tracks.items[index].album?.images[0].url ?? data.images[0].url) { image in
             self.imageSong.image = image
         }
-
+        
         if let url = URL(string: track?.preview_url ?? "") {
-            do {
-                NowPlayingViewController.player =  AVPlayer(url: url)
-            } catch {
-                print(error.localizedDescription)
-            }
+            NowPlayingViewController.player =  AVPlayer(url: url)
         }
         
         NowPlayingViewController.player?.play()

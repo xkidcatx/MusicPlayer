@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PlaylistSubtitleTableViewCell: UITableViewCell {
     
@@ -25,7 +26,7 @@ class PlaylistSubtitleTableViewCell: UITableViewCell {
     }(UILabel())
     
     private let iconImageView: UIImageView = {
-        $0.image = UIImage(systemName: "photo")
+        //$0.image = UIImage(systemName: "photo")
         $0.contentMode = .scaleAspectFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -56,7 +57,7 @@ class PlaylistSubtitleTableViewCell: UITableViewCell {
 func configure(with viewModel: PlaylistSubtitleTableViewCellViewModel) {
     label.text = viewModel.title
     subtitleLabel.text = viewModel.subtitle
-    //iconImageView.downloaded(from: viewModel.imageURL)
+    iconImageView.sd_setImage(with: viewModel.imageURL, placeholderImage: UIImage(named: "vinyl"), completed: nil)
 }
 
 }

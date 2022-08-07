@@ -11,6 +11,8 @@
 		1A306296289D53E100266F4C /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A306295289D53E100266F4C /* ActionView.swift */; };
 		1A306298289E7F5600266F4C /* PlaylistSubtitleTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A306297289E7F5500266F4C /* PlaylistSubtitleTableViewCellViewModel.swift */; };
 		1A30629A289E802C00266F4C /* PlaylistSubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A306299289E802C00266F4C /* PlaylistSubtitleTableViewCell.swift */; };
+		1A44270E289FB1DE008FDB1B /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1A44270D289FB1DE008FDB1B /* SDWebImage */; };
+		1A442710289FB1DE008FDB1B /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1A44270F289FB1DE008FDB1B /* SDWebImageMapKit */; };
 		1A5847DA288EA809009D957F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5847D9288EA809009D957F /* Launch Screen.storyboard */; };
 		1ABB1F9F28773C53008A2419 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB1F9E28773C53008A2419 /* MainTabBarController.swift */; };
 		1ABB1FA128773E0C008A2419 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB1FA028773E0C008A2419 /* ProfileViewController.swift */; };
@@ -49,7 +51,6 @@
 		A5F898132890114300E8EBF3 /* RecommendationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F898122890114300E8EBF3 /* RecommendationsTableViewCell.swift */; };
 		A5F89815289013E800E8EBF3 /* RecommendationsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F89814289013E800E8EBF3 /* RecommendationsCollectionViewCell.swift */; };
 		AA3C27CF28782500003B70D2 /* MusicListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C27CE28782500003B70D2 /* MusicListCell.swift */; };
-		AA505AF3288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA505AF2288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 */; };
 		FA1E64332875E78D00BA21DF /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E64322875E78D00BA21DF /* NowPlayingViewController.swift */; };
 		FA1E64352875E79E00BA21DF /* MusicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E64342875E79E00BA21DF /* MusicListViewController.swift */; };
 		FA59E1512874CD34008FC4BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59E1502874CD34008FC4BE /* AppDelegate.swift */; };
@@ -101,7 +102,6 @@
 		A5F898122890114300E8EBF3 /* RecommendationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewCell.swift; sourceTree = "<group>"; };
 		A5F89814289013E800E8EBF3 /* RecommendationsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA3C27CE28782500003B70D2 /* MusicListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListCell.swift; sourceTree = "<group>"; };
-		AA505AF2288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Lightwire - City of Dreams.mp3"; sourceTree = "<group>"; };
 		FA1E64322875E78D00BA21DF /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		FA1E64342875E79E00BA21DF /* MusicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListViewController.swift; sourceTree = "<group>"; };
 		FA59E14D2874CD34008FC4BE /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +117,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A442710289FB1DE008FDB1B /* SDWebImageMapKit in Frameworks */,
+				1A44270E289FB1DE008FDB1B /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +140,6 @@
 				FA59E1522874CD34008FC4BE /* SceneDelegate.swift */,
 				FA59E1592874CD35008FC4BE /* Assets.xcassets */,
 				FA59E15E2874CD35008FC4BE /* Info.plist */,
-				AA505AF2288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -292,6 +293,10 @@
 			dependencies = (
 			);
 			name = MusicPlayer;
+			packageProductDependencies = (
+				1A44270D289FB1DE008FDB1B /* SDWebImage */,
+				1A44270F289FB1DE008FDB1B /* SDWebImageMapKit */,
+			);
 			productName = MusicPlayer;
 			productReference = FA59E14D2874CD34008FC4BE /* MusicPlayer.app */;
 			productType = "com.apple.product-type.application";
@@ -320,6 +325,9 @@
 				Base,
 			);
 			mainGroup = FA59E1442874CD34008FC4BE;
+			packageReferences = (
+				1A44270C289FB1DE008FDB1B /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = FA59E14E2874CD34008FC4BE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -335,7 +343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A5847DA288EA809009D957F /* Launch Screen.storyboard in Resources */,
-				AA505AF3288AC93100E8BAA1 /* Lightwire - City of Dreams.mp3 in Resources */,
 				FA59E15A2874CD35008FC4BE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,6 +600,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A44270C289FB1DE008FDB1B /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A44270D289FB1DE008FDB1B /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A44270C289FB1DE008FDB1B /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		1A44270F289FB1DE008FDB1B /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A44270C289FB1DE008FDB1B /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA59E1452874CD34008FC4BE /* Project object */;
 }

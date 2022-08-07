@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PlaylistDetailViewController: UIViewController, StartAudiotrackDelegate {
     
@@ -76,6 +77,8 @@ class PlaylistDetailViewController: UIViewController, StartAudiotrackDelegate {
     }
     
     private func setupUI() {
+        tableView.backgroundColor = UIColor(named: "LightColour")
+        view.backgroundColor = UIColor(named: "LightColour")
         view.addSubview(tableView)
     }
     
@@ -128,10 +131,9 @@ extension PlaylistDetailViewController: UITableViewDelegate, UITableViewDataSour
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: AlbumHeaderFooterView.identifire) as? AlbumHeaderFooterView else { return UITableViewHeaderFooterView() }
         header.title.text = playlistDetail?.name
         header.subTitle.text = playlistDetail?.description
-        APICaller.shared.fetchImage(from: playlistDetail?.images[0].url ?? "", completionHandler: { image in
-            header.spinner.stopAnimating()
-            header.imageView.image = image
-        })
+        let url = URL(string: playlist.images.first?.url ?? "")
+        header.spinner.stopAnimating()
+        header.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "vinyl"),completed: nil)
         return header
     }
     

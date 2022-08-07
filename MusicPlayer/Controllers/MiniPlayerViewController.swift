@@ -15,7 +15,7 @@ class MiniPlayerViewController: UIViewController {
     
     var delegate: MiniPlayerDelegate?
     
-    let pauseButton: UIButton = {
+    lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = UIColor(named: "LightColour")
         let config = UIImage.SymbolConfiguration( pointSize: 32, weight: .medium, scale: .default)
@@ -55,7 +55,7 @@ class MiniPlayerViewController: UIViewController {
     } ()
     let imageAlbum: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Watermellon Music App Icon")
+        image.image = UIImage(named: "vinyl")
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 23
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -63,14 +63,14 @@ class MiniPlayerViewController: UIViewController {
     } ()
     let artistLable: UILabel = {
         let label = UILabel()
-        label.text = "Watermellon App "
+        label.text = "Artist"
         label.textColor = UIColor(named: "LightColour")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     let trackLable: UILabel = {
         let label = UILabel()
-        label.text = "Music Player"
+        label.text = "Song name"
         label.textColor = UIColor(named: "LightColour")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -262,6 +262,7 @@ final class APICaller {
     
     
     var imageCache = NSCache<NSString, UIImage>()
+    
     func fetchImage(from urlString: String, completionHandler: @escaping (_ image: UIImage?) -> ()) {
         if let image = imageCache.object(forKey: urlString as NSString) {
             completionHandler(image)
