@@ -1,5 +1,5 @@
 
-<h1> 📀 Watermellom Music App 🎧 </h1>
+<h1> 📀 Watermellon Music App 🎧 </h1>
 
 <h3> Simple music app based on Spotify API </h3>
 
