@@ -147,3 +147,36 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         playAudiotrack(index: indexPath.row)
     }
 }
+
+//MARK: - Context Menu
+
+extension AlbumDetailViewController {
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        
+        
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            guard let model = self.albumDetail?.tracks.items[indexPath.row] else { return nil }
+            
+            let action = UIAction(title: "Add to playlist") { _ in
+                DispatchQueue.main.async {
+                    let vc = MusicListViewController()
+                    vc.selectionHandler = { playlist in
+                        APICaller.shared.addTrackToPlaylist(track: model, playlist: playlist) { succes in
+                            print("Added to playlist success: \(succes)")
+                        }
+                    }
+                    vc.title = "Select Playlist"
+                    self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+                }
+            }
+            
+            let menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [action])
+            
+            return menu
+        }
+        
+        return config
+    }
+}
