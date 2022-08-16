@@ -6,7 +6,7 @@
 The application can carry out the following:
 
 * Play music from Spotify
-* Show recomendation
+* Show recomendations
 * Create a playlists
 * Add tracks to playlists
 * Show profile information
